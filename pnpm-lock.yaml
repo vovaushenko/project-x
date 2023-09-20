@@ -45,9 +45,15 @@ importers:
 
   apps/web:
     dependencies:
+      model:
+        specifier: workspace:*
+        version: link:../../packages/model
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
+      web-lib:
+        specifier: workspace:*
+        version: link:../../packages/web-lib
     devDependencies:
       eslint:
         specifier: ^7.32.0
@@ -77,9 +83,39 @@ importers:
         specifier: ^8.5.0
         version: 8.5.0(eslint@7.32.0)
 
+  packages/model:
+    devDependencies:
+      eslint:
+        specifier: ^7.32.0
+        version: 7.32.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^4.9.4
+        version: 4.9.4
+
   packages/tsconfig: {}
 
   packages/ui:
+    devDependencies:
+      eslint:
+        specifier: ^7.32.0
+        version: 7.32.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^4.9.4
+        version: 4.9.4
+
+  packages/web-lib:
     devDependencies:
       eslint:
         specifier: ^7.32.0
@@ -697,6 +733,7 @@ packages:
 
   /eslint-config-prettier@8.5.0(eslint@7.32.0):
     resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
+    hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
     dependencies:
@@ -1377,6 +1414,7 @@ packages:
   /vite@4.0.3:
     resolution: {integrity: sha512-HvuNv1RdE7deIfQb8mPk51UKjqptO/4RXZ5yXSAvurd5xOckwS/gg8h9Tky3uSbnjYTgUm0hVCet1cyhKd73ZA==}
     engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
     peerDependencies:
       '@types/node': '>= 14'
       less: '*'
