@@ -1,7 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { APPLICATION_NAME_SPACE } from 'common';
-import { Logger } from 'web-lib';
+import 'ui-kit';
 
 const ELEMENT_NAME = `${APPLICATION_NAME_SPACE}-app`;
 

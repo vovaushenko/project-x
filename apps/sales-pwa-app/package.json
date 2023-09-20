@@ -12,7 +12,8 @@
 		"lit": "^2.7.6",
 		"model": "workspace:*",
 		"web-lib": "workspace:*",
-		"common": "workspace:*"
+		"common": "workspace:*",
+		"ui-kit": "workspace:*"
 	},
 	"devDependencies": {
 		"typescript": "^5.0.2",
