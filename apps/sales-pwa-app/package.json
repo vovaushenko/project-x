@@ -12,15 +12,15 @@
   },
   "dependencies": {
     "common": "workspace:*",
-    "lit": "^2.7.6",
+    "lit": "^2.8.0",
     "model": "workspace:*",
     "ui-kit": "workspace:*",
     "web-lib": "workspace:*"
   },
   "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9",
     "jsdom": "^22.1.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
     "vitest": "^0.34.4"
   }
 }

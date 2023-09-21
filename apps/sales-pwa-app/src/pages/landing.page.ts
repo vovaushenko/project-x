@@ -11,6 +11,7 @@ export class LandingPage extends LitElement {
     return html`
       <section>
         <h1>Hello on Sales PWA Landing Page!!!</h1>
+        <h2>Update</h2>
         <button id="logger-btn" @click=${() => this._onClick()}>Log</button>
         <av-badge variant="success">Success</av-badge>
         <av-badge variant="danger">Danger</av-badge>

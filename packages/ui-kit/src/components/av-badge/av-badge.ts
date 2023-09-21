@@ -42,3 +42,10 @@ declare global {
 		'av-badge': AvBadge;
 	}
 }
+
+// 4 | 5kb -> react 70kb
+// it's faster then react -> 20%-50% faster
+
+// 1) register web component namespace in the browser
+// 2) shadow root -> for incapsulation
+// 3) declarative templates
