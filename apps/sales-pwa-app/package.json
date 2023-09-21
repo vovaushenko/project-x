@@ -1,22 +1,26 @@
 {
-	"name": "sales-pwa-app",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "tsc && vite build",
-		"preview": "vite preview"
-	},
-	"dependencies": {
-		"lit": "^2.7.6",
-		"model": "workspace:*",
-		"web-lib": "workspace:*",
-		"common": "workspace:*",
-		"ui-kit": "workspace:*"
-	},
-	"devDependencies": {
-		"typescript": "^5.0.2",
-		"vite": "^4.4.5"
-	}
+  "name": "sales-pwa-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "common": "workspace:*",
+    "lit": "^2.7.6",
+    "model": "workspace:*",
+    "ui-kit": "workspace:*",
+    "web-lib": "workspace:*"
+  },
+  "devDependencies": {
+    "jsdom": "^22.1.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vitest": "^0.34.4"
+  }
 }
