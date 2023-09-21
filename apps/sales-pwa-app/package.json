@@ -9,14 +9,14 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"lit": "^2.7.6",
-		"model": "workspace:*",
-		"web-lib": "workspace:*",
 		"common": "workspace:*",
-		"ui-kit": "workspace:*"
+		"lit": "^2.8.0",
+		"model": "workspace:*",
+		"ui-kit": "workspace:*",
+		"web-lib": "workspace:*"
 	},
 	"devDependencies": {
-		"typescript": "^5.0.2",
-		"vite": "^4.4.5"
+		"typescript": "^5.2.2",
+		"vite": "^4.4.9"
 	}
 }
