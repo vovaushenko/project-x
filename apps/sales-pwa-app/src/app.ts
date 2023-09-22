@@ -10,7 +10,7 @@ export class SalesApp extends LitElement {
 	render() {
 		return html`
 			<section>
-				<av-landing-page></av-landing-page>
+				<av-worker-page></av-worker-page>
 			</section>
 		`;
 	}
