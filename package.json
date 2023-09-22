@@ -1,16 +1,18 @@
 {
-	"private": true,
-	"scripts": {
-		"build": "turbo run build",
-		"dev": "turbo run dev",
-		"lint": "turbo run lint",
-		"format": "prettier --write \"**/*.{ts,tsx,md}\""
-	},
-	"devDependencies": {
-		"eslint": "^8.49.0",
-		"eslint-config-custom": "workspace:*",
-		"prettier": "^3.0.3",
-		"turbo": "^1.10.14"
-	},
-	"packageManager": "pnpm@8.6.10"
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch"
+  },
+  "devDependencies": {
+    "eslint": "^8.49.0",
+    "eslint-config-custom": "workspace:*",
+    "prettier": "^3.0.3",
+    "turbo": "^1.10.14"
+  },
+  "packageManager": "pnpm@8.6.10"
 }
