@@ -42,6 +42,12 @@ export class AvButton extends LitElement {
 	static styles = css`
 		:host {
 		}
+		:host button {
+			padding: 0.75rem 1.25rem;
+			border-radius: 6px;
+			border: 0;
+			cursor: pointer;
+		}
 
 		:host([type='default']) button {
 			background-color: var(--default-bg-color);
