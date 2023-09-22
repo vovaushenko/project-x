@@ -11,6 +11,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@vaadin/router": "^1.7.5",
     "common": "workspace:*",
     "lit": "^2.8.0",
     "model": "workspace:*",
@@ -18,9 +19,9 @@
     "web-lib": "workspace:*"
   },
   "devDependencies": {
+    "jsdom": "^22.1.0",
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
-    "jsdom": "^22.1.0",
     "vitest": "^0.34.4"
   }
 }
