@@ -7,28 +7,28 @@ const ELEMENT_NAME = `${APPLICATION_NAME_SPACE}-app`;
 
 @customElement(ELEMENT_NAME)
 export class SalesApp extends LitElement {
-	render() {
-		return html`
-			<section>
-				<av-worker-page></av-worker-page>
-			</section>
-		`;
-	}
+  render() {
+    return html`
+      <section>
+        <av-service-worker-page></av-service-worker-page>
+      </section>
+    `;
+  }
 
-	static styles = css`
-		:host {
-			width: 100vw;
-			height: 100vh;
-			display: grid;
-			place-items: center;
-			background-color: #646cffaa;
-			color: rgba(255, 255, 255, 0.9);
-		}
-	`;
+  static styles = css`
+    :host {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      background-color: #646cffaa;
+      color: rgba(255, 255, 255, 0.9);
+    }
+  `;
 }
 
 declare global {
-	interface HTMLElementTagNameMap {
-		[ELEMENT_NAME]: SalesApp;
-	}
+  interface HTMLElementTagNameMap {
+    [ELEMENT_NAME]: SalesApp;
+  }
 }
