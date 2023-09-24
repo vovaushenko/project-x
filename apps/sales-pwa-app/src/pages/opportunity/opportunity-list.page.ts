@@ -1,34 +1,48 @@
-import { LitElement, html } from 'lit';
+import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { ApplicationView } from '../../components/view/view.component';
 
 @customElement('opportunity-list-page')
-export class OpportunityListPage extends LitElement {
+export class OpportunityListPage extends ApplicationView {
   render() {
+    const optyList = this.getListOfOpportunities();
     return html`
       <section>
         <h1>Opty List</h1>
-        <ul>
-          <li>
-            <div>
-              Opty 1
-              <a href="opportunities/1">go</a>
-            </div>
-          </li>
-          <li>
-          <div>
-              Opty 2
-              <a href="opportunities/2">go</a>
-            </div>
-          </li></li>
-          <li>
-          <div>
-              Opty 3
-              <a href="opportunities/3">go</a>
-            </div>
-          </li></li>
-        </ul>
+        ${optyList}
       </section>
     `;
+  }
+
+  getListOfOpportunities() {
+    const opportunities = this.getOpportunities();
+
+    return opportunities.map((opty) => {
+      return html`<li>
+        <div>
+          ${opty.name}
+          <button @click="${() => this.navigateToOptyDetail(opty.id)}">go</button>
+        </div>
+      </li>`;
+    });
+  }
+
+  getOpportunities() {
+    return [
+      { name: 'Amazon', id: '1' },
+      {
+        name: 'Google',
+        id: '2',
+      },
+      {
+        name: 'Microsoft',
+        id: '3',
+      },
+    ];
+  }
+
+  navigateToOptyDetail(id: string) {
+    this.navigateTo(`/opportunities/${id}`);
   }
 }
 

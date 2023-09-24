@@ -1,8 +1,9 @@
-import { LitElement, html } from 'lit';
+import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { ApplicationView } from '../components/view/view.component';
 
 @customElement('playgrounds-page')
-export class PlaygroundsPage extends LitElement {
+export class PlaygroundsPage extends ApplicationView {
   render() {
     return html`<section>
       <h1>Playgrounds</h1>

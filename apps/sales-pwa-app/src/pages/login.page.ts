@@ -1,21 +1,16 @@
-import { LitElement, html } from 'lit';
+import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { ApplicatioRouter } from '../router/application-router';
+import { ApplicationView } from '../components/view/view.component';
 
 @customElement('login-page')
-export class LoginPage extends LitElement {
+export class LoginPage extends ApplicationView {
   render() {
     return html`
       <section>
         <h1>Login</h1>
         <av-badge variant="success">Success</av-badge>
-        <av-button label="navigate" type="success" @click=${this.navigateClick}></av-button>
       </section>
     `;
-  }
-
-  navigateClick() {
-    ApplicatioRouter.navigate('playgrounds');
   }
 }
 

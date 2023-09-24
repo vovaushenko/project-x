@@ -22,7 +22,7 @@ function computeFibonacciForever() {
   setTimeout(() => {
     fibonacciId++;
     computeFibonacciForever();
-  }, 5);
+  }, 300);
 }
 
 self.onmessage = (event) => {

@@ -16,6 +16,8 @@ export class SalesApp extends LitElement {
         <a href="/playgrounds">Playground</a>
         <a href="/opportunities">Opty List</a>
         <a href="/login">Login</a>
+        <a href="/worker">Worker</a>
+        <a href="/service-worker">Service Worker</a>
       </nav>
       <main>
         <div id="outlet"></div>
