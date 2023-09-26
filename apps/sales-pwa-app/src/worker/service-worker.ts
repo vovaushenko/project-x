@@ -17,6 +17,8 @@
  * Background sync 🧪 (experimental) : https://developer.mozilla.org/en-US/docs/Web/API/Background_Synchronization_API
  */
 
+import { Maybe } from '../shared/types';
+
 // 1) figure out if we are offline
 const isOnline = (): boolean => {
   if ('onLine' in navigator) {
@@ -30,24 +32,46 @@ export const ServiceWorkerUtils = {
   isOnline,
 };
 
-async function initServiceWorker() {
+let swcWorker: Maybe<ServiceWorker> = null;
+
+export async function initServiceWorker() {
   if ('serviceWorker' in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register('/sw.js', {
+      const registration = await navigator.serviceWorker.register('./sw.ts', {
         updateViaCache: 'none',
       });
       console.log('Service worker registered: ', registration);
 
-      let swcWorker = registration.active || registration.installing || registration.waiting;
+      swcWorker = registration.active || registration.installing || registration.waiting;
 
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         swcWorker = navigator.serviceWorker.controller;
         console.log('Service worker controller changed: ', swcWorker);
       });
+
+      // listen to messages from service worker
+      navigator.serviceWorker.addEventListener('message', onSWMessage);
     } catch (error) {
       console.log('Service worker registration failed: ', error);
     }
   }
 }
 
-initServiceWorker();
+async function onSWMessage(event: MessageEvent) {
+  const { data } = event;
+
+  // we will communicate to service worker user status (log in/out) also online/offline
+  if (data.requestStatusUpdate) {
+    sendMessageToSW;
+  }
+}
+
+async function sendMessageToSW(msg: string, target: any) {
+  if (target) {
+    target.postMessage(msg);
+  } else if (swcWorker) {
+    swcWorker.postMessage(msg);
+  } else {
+    navigator.serviceWorker.controller?.postMessage(msg);
+  }
+}

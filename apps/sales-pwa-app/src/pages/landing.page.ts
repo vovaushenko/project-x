@@ -1,7 +1,7 @@
-import { APPLICATION_NAME_SPACE } from 'common';
+import { APPLICATION_NAME_SPACE } from '@project-x/common';
 import { css, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { Logger } from 'web-lib';
+import { Logger } from '@project-x/web-lib';
 import { ApplicationView } from '../components/view/view.component';
 
 const ELEMENT_NAME = `${APPLICATION_NAME_SPACE}-landing-page`;

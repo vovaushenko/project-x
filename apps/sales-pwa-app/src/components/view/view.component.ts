@@ -8,7 +8,7 @@ import {
 } from '@vaadin/router';
 import { ApplicationPath, ApplicationRoute } from '../../router/router.routes';
 import { RouterUtils } from '../../router/router.utils';
-import { IUser } from 'model';
+import { IUser } from '@project-x/model';
 import { Maybe } from '../../shared/types';
 
 export class ApplicationView extends LitElement implements BeforeEnterObserver {
@@ -24,7 +24,6 @@ export class ApplicationView extends LitElement implements BeforeEnterObserver {
 
     if (isPrivateRoute) {
       // TODO: this handlers will be moved to auth service
-      alert('private route');
       if (currentRoute.authorizedRoles && !currentRoute.authorizedRoles.includes(this.user.role)) {
         alert('You cannot access this route');
         return commands.prevent();

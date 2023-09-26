@@ -1,8 +1,8 @@
 import { LitElement, PropertyValueMap, css, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { APPLICATION_NAME_SPACE } from 'common';
+import { APPLICATION_NAME_SPACE } from '@project-x/common';
 import { Router } from '@vaadin/router';
-import 'ui-kit';
+import '@project-x/ui-kit';
 import { routes } from './router/router.routes';
 
 const ELEMENT_NAME = `${APPLICATION_NAME_SPACE}-app`;

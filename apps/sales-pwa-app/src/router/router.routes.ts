@@ -1,5 +1,5 @@
 import { Route } from '@vaadin/router';
-import { IAuthorizationRole } from 'model';
+import { IAuthorizationRole } from '@project-x/model';
 
 export type ApplicationPath =
   | '/'
@@ -26,7 +26,7 @@ export const routes: ApplicationRoute[] = [
     path: '/playgrounds',
     component: 'playgrounds-page',
     private: true,
-    authorizedRoles: ['admin'],
+    authorizedRoles: ['admin', 'user', 'guest'],
   },
   { path: '/opportunities', component: 'opportunity-list-page', private: true },
   { path: '/opportunities/:id', component: 'opportunity-detail-page', private: true },

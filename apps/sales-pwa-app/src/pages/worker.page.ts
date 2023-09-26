@@ -1,9 +1,6 @@
 import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { Utils } from '../shared/utils';
-function heavyCompute() {
-  return 'takes 5 minutes';
-}
 
 @customElement('av-worker-page')
 export class WorkerPage extends LitElement {

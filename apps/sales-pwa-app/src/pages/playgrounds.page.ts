@@ -7,6 +7,7 @@ export class PlaygroundsPage extends ApplicationView {
   render() {
     return html`<section>
       <h1>Playgrounds</h1>
+      <av-button variant="primary">Primary</av-button>
     </section> `;
   }
 }
