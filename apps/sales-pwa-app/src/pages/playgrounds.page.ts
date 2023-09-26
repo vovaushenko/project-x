@@ -8,6 +8,7 @@ export class PlaygroundsPage extends ApplicationView {
     return html`<section>
       <h1>Playgrounds</h1>
       <av-button variant="primary">Primary</av-button>
+      <av-paragraph>Hello world!</av-paragraph>
     </section> `;
   }
 }
