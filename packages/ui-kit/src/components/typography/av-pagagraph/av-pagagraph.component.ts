@@ -1,19 +1,23 @@
-import { LitElement, css, html } from 'lit';
+import { css, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { designSystemTokens } from '../../../design-system/tokens';
+import { AvElement } from '../../av-element/av-element';
 
 @customElement('av-paragraph')
-export class AvParagraph extends LitElement {
+export class AvParagraph extends AvElement {
   static styles = [
-    designSystemTokens,
+    ...super.styles,
     css`
       :host p {
         color: var(--av-primary-text-color);
+        font-size: var(--fs-xxl);
       }
     `,
   ];
   render() {
-    return html`<p><slot></slot></p>`;
+    return html`<p>
+      <slot></slot>
+      theme-${this.theme}
+    </p>`;
   }
 }
 
