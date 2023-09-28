@@ -9,6 +9,7 @@ export class PlaygroundsPage extends ApplicationView {
       <h1>Playgrounds</h1>
       <av-button variant="primary">Primary</av-button>
       <av-paragraph>Hello world!</av-paragraph>
+      <av-mock-theme></av-mock-theme>
     </section> `;
   }
 }

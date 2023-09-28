@@ -6,3 +6,4 @@ export { OpportunityListPage } from './pages/opportunity/opportunity-list.page';
 export { OpportunityDetailPage } from './pages/opportunity/opportunity-detail.page';
 export { WorkerPage } from './pages/worker.page';
 export { ServiceWorkerPage } from './pages/service-worker.page';
+export { MockComponent } from './components/theme/mock.component';
