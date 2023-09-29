@@ -8,7 +8,9 @@
   "scripts": {
     "build": "tsc && vite build",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest --watch",
+    "cypress:open": "cypress open"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.4.3",
@@ -16,6 +18,8 @@
     "@storybook/blocks": "^7.4.3",
     "@storybook/web-components": "^7.4.3",
     "@storybook/web-components-vite": "^7.4.3",
+    "cypress": "^13.3.0",
+    "cypress-ct-lit-element": "^0.1.5",
     "eslint": "^8.49.0",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-storybook": "^0.6.14",
@@ -25,7 +29,8 @@
     "storybook": "^7.4.3",
     "tsconfig": "workspace:*",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "vitest": "^0.34.5"
   },
   "eslintConfig": {
     "extends": [
