@@ -3,18 +3,19 @@ import { LoggerController } from '../../controllers/Logger.controller';
 import { AV_X_DESIGN_SYSTEM } from '../../design-system/tokens';
 import { state } from 'lit/decorators.js';
 import { Maybe, UiKitTheme } from '../../shared/types';
+import { isSupportedTheme } from '../../shared/utils';
+import { AV_UI_KIT_THEME_NAMESPACE } from '../../shared/constants';
 
 export class AvElement extends LitElement {
   static styles = AV_X_DESIGN_SYSTEM;
 
-  @state() protected _registredElements: AvElement[] = [];
-  @state() public theme: UiKitTheme = null;
+  @state() public theme: Maybe<UiKitTheme> = null;
 
   protected _themeObserver: Maybe<MutationObserver> = null;
 
   constructor() {
     super();
-    this._registredElements.push(this);
+    console.log(`AV Element: ${this.constructor.name} is constructed`);
   }
 
   connectedCallback(): void {
@@ -30,14 +31,17 @@ export class AvElement extends LitElement {
 
   private _instantiateThemeObserver(): void {
     this._themeObserver = new MutationObserver(() => {
-      this._registredElements.forEach((element) => {
-        element.theme = document.documentElement.getAttribute('theme') as UiKitTheme;
-      });
+      const appliedTheme = document.documentElement.getAttribute(AV_UI_KIT_THEME_NAMESPACE);
+      if (isSupportedTheme(appliedTheme)) {
+        this.theme = appliedTheme;
+      } else {
+        console.warn(`Current theme - ${appliedTheme} is not supported by ui-kit`);
+      }
     });
 
     this._themeObserver.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['theme'],
+      attributeFilter: [AV_UI_KIT_THEME_NAMESPACE],
     });
   }
 

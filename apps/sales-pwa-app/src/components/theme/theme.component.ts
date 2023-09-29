@@ -8,6 +8,7 @@ declare class ThemeHost {
 const registeredComponents: (ThemeHost & HTMLElement)[] = [];
 const themeObserver = new MutationObserver(() => {
   registeredComponents.forEach((component) => {
+    // really check - the best
     component.theme = (document.documentElement.getAttribute('theme') || '') as themeType;
   });
 });

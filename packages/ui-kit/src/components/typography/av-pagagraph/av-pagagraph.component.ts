@@ -13,6 +13,7 @@ export class AvParagraph extends AvElement {
       }
     `,
   ];
+
   render() {
     return html`<p>
       <slot></slot>
