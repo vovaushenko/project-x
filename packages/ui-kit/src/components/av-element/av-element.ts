@@ -1,11 +1,12 @@
 import { LitElement } from 'lit';
 import { LoggerController } from '../../controllers/Logger.controller';
+import { customElement, state } from 'lit/decorators.js';
 import { AV_X_DESIGN_SYSTEM } from '../../design-system/tokens';
-import { state } from 'lit/decorators.js';
 import { Maybe, UiKitTheme } from '../../shared/types';
-import { isSupportedTheme } from '../../shared/utils';
 import { AV_UI_KIT_THEME_NAMESPACE } from '../../shared/constants';
+import { isSupportedTheme } from '../../shared/utils';
 
+@customElement('av-element')
 export class AvElement extends LitElement {
   static styles = AV_X_DESIGN_SYSTEM;
 
@@ -47,5 +48,11 @@ export class AvElement extends LitElement {
 
   private _disconnectThemeObserver(): void {
     this._themeObserver?.disconnect();
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'av-element': AvElement;
   }
 }
