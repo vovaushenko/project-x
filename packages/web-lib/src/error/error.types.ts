@@ -28,9 +28,14 @@ export enum AVXErrorCode {
   STATE_MANAGEMENT_ERROR = 'AVX-STATE-MANAGEMENT-1',
 }
 
-export type ICreateAVXErrorDto = {
+export interface ICreateAVXErrorDto {
+  type: AVXErrorType;
+  code: AVXErrorCode;
   message: string;
   details?: string | string[];
-};
+  metadata?: Record<string, unknown>;
+}
 
-export type ICreateAVXErrorFunction = (createAVXErrorDto: ICreateAVXErrorDto) => AVXError;
+export type ICreateAVXFactoryErrorDto = Omit<ICreateAVXErrorDto, 'type' | 'code'>;
+
+export type ICreateAVXErrorFunction = (createAVXErrorDto: ICreateAVXFactoryErrorDto) => AVXError;
