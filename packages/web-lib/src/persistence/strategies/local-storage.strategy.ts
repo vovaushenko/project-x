@@ -1,4 +1,4 @@
-import { IStorageStrategy } from '../web-store.types';
+import { IStorageStrategy, OperationSuccessResult } from '../web-store.types';
 
 export class LocalStorageStrategy implements IStorageStrategy {
   async init(): Promise<void> {}
@@ -8,12 +8,21 @@ export class LocalStorageStrategy implements IStorageStrategy {
       const storedItem = localStorage.getItem(key);
       if (!storedItem) {
         // gracefully handle
-        return null;
+        return {
+          success: false,
+          data: null,
+        };
       }
-      return JSON.parse(storedItem) as TData;
+      return {
+        success: true,
+        data: JSON.parse(storedItem) as TData,
+      };
     } catch (error) {
       // gracefully handle
-      return null;
+      return {
+        success: false,
+        data: null,
+      };
     }
   }
 
@@ -22,7 +31,19 @@ export class LocalStorageStrategy implements IStorageStrategy {
     localStorage.setItem(key, stringifiedValue);
   }
 
-  async remove(key: string) {
-    localStorage.removeItem(key);
+  async remove(key: string): OperationSuccessResult<void> {
+    const storedItemKeys = Object.keys(localStorage);
+
+    const isItemStored = storedItemKeys.includes(key);
+    if (isItemStored) {
+      localStorage.removeItem(key);
+      return {
+        success: true,
+      };
+    } else {
+      return {
+        success: false,
+      };
+    }
   }
 }
