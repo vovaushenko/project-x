@@ -1,0 +1,41 @@
+import { AVXError } from './av-x-error';
+
+export enum AVXErrorType {
+  NETWORK_ERROR = 'NETWORK_ERROR',
+  CUSTOM_ERROR = 'CUSTOM_ERROR',
+  GENERIC_ERROR = 'GENERIC_ERROR',
+}
+
+export enum AVXErrorCode {
+  INFORMATIONAL = 'AVX-INFORMATIONAL',
+  WARNING = 'AVX-WARNING',
+  MINOR_ERROR = 'AVX-MINOR-ERROR',
+  MODERATE_ERROR = 'AVX-MODERATE-ERROR',
+  MAJOR_ERROR = 'AVX-MAJOR-ERROR',
+  CRITICAL_ERROR = 'AVX-CRITICAL-ERROR',
+  SEVERE_LOSS_OF_FUNCTIONALITY = 'AVX-SEVERE-LOSS-OF-FUNCTIONALITY',
+
+  NETWORK_BAD_REQUEST = 'AVX-NETWORK-400',
+  NETWORK_UNAUTHORIZED = 'AVX-NETWORK-401',
+  NETWORK_FORBIDDEN = 'AVX-NETWORK-403',
+  NETWORK_NOT_FOUND = 'AVX-NETWORK-404',
+  NETWORK_INTERNAL_SERVER_ERROR = 'AVX-NETWORK-500',
+  NETWORK_BAD_GATEWAY = 'AVX-NETWORK-502',
+  NETWORK_SERVICE_UNAVAILABLE = 'AVX-NETWORK-503',
+  NETWORK_GATEWAY_TIMEOUT = 'AVX-NETWORK-504',
+  NETWORK_UNKNOWN_ERROR = 'AVX-NETWORK-UNKNOWN',
+
+  STATE_MANAGEMENT_ERROR = 'AVX-STATE-MANAGEMENT-1',
+}
+
+export interface ICreateAVXErrorDto {
+  type: AVXErrorType;
+  code: AVXErrorCode;
+  message: string;
+  details?: string | string[];
+  metadata?: Record<string, unknown>;
+}
+
+export type ICreateAVXFactoryErrorDto = Omit<ICreateAVXErrorDto, 'type' | 'code'>;
+
+export type ICreateAVXErrorFunction = (createAVXErrorDto: ICreateAVXFactoryErrorDto) => AVXError;
