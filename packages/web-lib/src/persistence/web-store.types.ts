@@ -1,19 +1,11 @@
 export interface IStorageStrategy {
-  getOne<TStoredData>(key: string): Promise<TStoredData | null>;
-  set(key: string, value: unknown): Promise<void>;
+  getOneByKey<TStoredData>(key: string): Promise<OperationResult<TStoredData>>;
+  setOneByKey(key: string, value: unknown): Promise<OperationResult<void>>;
   remove(key: string): Promise<OperationResult<void>>;
   init(): Promise<void>;
+  storageAvailable(): Promise<boolean>;
 }
 
-export type IWebStore = Pick<IStorageStrategy, 'getOne' | 'init' | 'remove' | 'set'>;
+export type IWebStore = Pick<IStorageStrategy, 'getOneByKey' | 'init' | 'remove' | 'setOneByKey'>;
 
-export const enum StorageType {
-  LocalStorage,
-  SessionStorage,
-  Cache,
-  IndexedDB,
-}
-
-export type OperationSuccessResult<TData> = { success: boolean; data?: TData };
-export type OperationFailureResult = { success: boolean; data?: null };
-export type OperationResult<TData> = OperationSuccessResult<TData> | OperationFailureResult;
+export type OperationResult<TData> = { success: boolean; data?: TData };

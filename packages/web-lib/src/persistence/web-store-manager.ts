@@ -1,49 +1,30 @@
-import {
-  CacheStrategy,
-  LocalStorageStrategy,
-  SessionStorageStrategy,
-  IndexDBStrategy,
-} from './strategies';
-import { IStorageStrategy, IWebStore, StorageType } from './web-store.types';
+import { SessionStorageStrategy } from './strategies';
+import { IStorageStrategy, IWebStore, OperationResult } from './web-store.types';
 
 export class StorageContext implements IWebStore {
-  strategy: IStorageStrategy;
+  private strategy: IStorageStrategy;
 
-  constructor(type: StorageType) {
-    this.strategy = this.setStrategy(type);
+  constructor(strategy?: IStorageStrategy) {
+    this.strategy = strategy ?? new SessionStorageStrategy();
   }
 
-  setStrategy(type: StorageType): IStorageStrategy {
-    switch (type) {
-      case StorageType.LocalStorage:
-        return new LocalStorageStrategy();
-      case StorageType.SessionStorage:
-        return new SessionStorageStrategy();
-      case StorageType.Cache:
-        return new CacheStrategy();
-      case StorageType.IndexedDB:
-        return new IndexDBStrategy();
-      default:
-        throw new Error('Invalid storage type');
-    }
+  getStrategy(): IStorageStrategy {
+    return this.strategy;
+  }
+  setStrategy(strategy: IStorageStrategy): void {
+    this.strategy = strategy;
   }
   async init(): Promise<void> {
     await this.strategy.init();
   }
-  async getOne<TData>(key: string): Promise<TData | null> {
-    return this.strategy.getOne<TData>(key);
+  async getOneByKey<TData>(key: string): Promise<OperationResult<TData>> {
+    return this.strategy.getOneByKey<TData>(key);
   }
-  async remove(key: string): Promise<void> {}
-  async set(key: string, value: unknown): Promise<void> {}
+  async setOneByKey(key: string, value: unknown): Promise<OperationResult<void>> {
+    return this.strategy.setOneByKey(key, value);
+  }
+
+  async remove(key: string): Promise<OperationResult<void>> {
+    return this.strategy.remove(key);
+  }
 }
-
-const webStore = new StorageContext(StorageType.LocalStorage);
-
-const foo = async () => {
-  type IUser = {
-    id: string;
-    name: string;
-  };
-
-  const user = await webStore.getOne<IUser>('hello-world');
-};
