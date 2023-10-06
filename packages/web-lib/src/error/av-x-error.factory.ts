@@ -2,7 +2,15 @@ import { AVXError } from './av-x-error';
 import { AVXErrorType, ICreateAVXErrorFunction, AVXErrorCode } from './error.types';
 
 export class AVXErrorFactory {
-  static createBadRequestError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  private static instance: AVXErrorFactory = new AVXErrorFactory();
+
+  public static getInstance(): AVXErrorFactory {
+    return AVXErrorFactory.instance;
+  }
+
+  private constructor() {}
+
+  createBadRequestError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.NETWORK_ERROR,
       code: AVXErrorCode.NETWORK_BAD_REQUEST,
@@ -12,7 +20,7 @@ export class AVXErrorFactory {
     });
   };
 
-  static createForbiddenError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  createForbiddenError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.NETWORK_ERROR,
       code: AVXErrorCode.NETWORK_FORBIDDEN,
@@ -22,7 +30,7 @@ export class AVXErrorFactory {
     });
   };
 
-  static createNotFoundError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  createNotFoundError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.NETWORK_ERROR,
       code: AVXErrorCode.NETWORK_NOT_FOUND,
@@ -32,7 +40,7 @@ export class AVXErrorFactory {
     });
   };
 
-  static createInternalServerError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  createInternalServerError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.NETWORK_ERROR,
       code: AVXErrorCode.NETWORK_INTERNAL_SERVER_ERROR,
@@ -42,7 +50,7 @@ export class AVXErrorFactory {
     });
   };
 
-  static createBadGatewayError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  createBadGatewayError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.NETWORK_ERROR,
       code: AVXErrorCode.NETWORK_BAD_GATEWAY,
@@ -52,7 +60,7 @@ export class AVXErrorFactory {
     });
   };
 
-  static createServiceUnavailableError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  createServiceUnavailableError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.NETWORK_ERROR,
       code: AVXErrorCode.NETWORK_SERVICE_UNAVAILABLE,
@@ -62,7 +70,7 @@ export class AVXErrorFactory {
     });
   };
 
-  static createGatewayTimeoutError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  createGatewayTimeoutError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.NETWORK_ERROR,
       code: AVXErrorCode.NETWORK_GATEWAY_TIMEOUT,
@@ -72,7 +80,7 @@ export class AVXErrorFactory {
     });
   };
 
-  static createUnknownNetworkError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  createUnknownNetworkError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.NETWORK_ERROR,
       code: AVXErrorCode.NETWORK_UNKNOWN_ERROR,
@@ -82,7 +90,7 @@ export class AVXErrorFactory {
     });
   };
 
-  static createUnauthorizedError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  createUnauthorizedError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.NETWORK_ERROR,
       code: AVXErrorCode.NETWORK_UNAUTHORIZED,
@@ -92,7 +100,7 @@ export class AVXErrorFactory {
     });
   };
 
-  static createStateManagementError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  createStateManagementError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.CUSTOM_ERROR,
       code: AVXErrorCode.STATE_MANAGEMENT_ERROR,
@@ -102,7 +110,7 @@ export class AVXErrorFactory {
     });
   };
 
-  static createGenericError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+  createGenericError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
     return new AVXError({
       type: AVXErrorType.GENERIC_ERROR,
       code: AVXErrorCode.WARNING,

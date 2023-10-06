@@ -1,9 +1,18 @@
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { ApplicationView } from '../components/view/view.component';
+import { TaskService } from '../services/task.service';
 
 @customElement('playgrounds-page')
 export class PlaygroundsPage extends ApplicationView {
+  private _taskService: TaskService = TaskService.getInstance();
+
+  async connectedCallback() {
+    super.connectedCallback();
+    const tasks = await this._taskService.getTasks();
+    console.log({ tasks });
+  }
+
   render() {
     return html`<section>
       <h1>Playgrounds</h1>
