@@ -1,6 +1,8 @@
 import { describe, vi, it, expect } from 'vitest';
-import { HttpService } from '../http/Http.service';
 import { HttpClient } from '../types/network.types';
+import { AVXError } from '../../error/av-x-error';
+import { AVXErrorCode } from '../../error/error.types';
+import { HttpService } from '../http/Http.service';
 
 describe('HttpService', () => {
   class AppService extends HttpService {
@@ -12,10 +14,23 @@ describe('HttpService', () => {
   const appService = new AppService();
   const MOCK_API_RESPONSE = { hello: 'world' };
 
+  function getStatusCodeFromUrl(url: string): number {
+    if (url.includes('404')) {
+      return 404;
+    } else if (url.includes('500')) {
+      return 500;
+    } else if (url.includes('401')) {
+      return 401;
+    } else {
+      return 200;
+    }
+  }
+
   const MOCK_HTTP_CLIENT: HttpClient = {
-    get: vi.fn().mockImplementation((_url: string, _config?: RequestInit) => {
+    get: vi.fn().mockImplementation((url: string, _config?: RequestInit) => {
+      const statusCode = getStatusCodeFromUrl(url);
       const response = new Response(JSON.stringify(MOCK_API_RESPONSE), {
-        status: 200,
+        status: statusCode,
         statusText: 'OK',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -75,7 +90,44 @@ describe('HttpService', () => {
       const apiResponse = await appService.get(MOCK_URL);
       expect(MOCK_HTTP_CLIENT.get).toHaveBeenCalled();
       expect(MOCK_HTTP_CLIENT.get).toHaveBeenCalledWith(MOCK_URL, undefined);
-      expect(apiResponse).toEqual(MOCK_API_RESPONSE);
+      expect(apiResponse.success).toEqual(true);
+      if (apiResponse.success) {
+        expect(apiResponse.value).toEqual(MOCK_API_RESPONSE);
+      }
+    });
+
+    it('should throw semantic AVX 401 error for unauthorized requests', async () => {
+      const unauthorizedUrl = 'http://localhost:3000/401';
+      try {
+        await appService.get(unauthorizedUrl);
+      } catch (error) {
+        expect(error instanceof AVXError).toBe(true);
+        if (error instanceof AVXError) {
+          expect(error.code).toBe(AVXErrorCode.NETWORK_UNAUTHORIZED);
+        }
+      }
+    });
+
+    it('should throw semantic AVX 404 error for not found requests', async () => {
+      const notFoundUrl = 'http://localhost:3000/404';
+
+      const apiResponse = await appService.get(notFoundUrl);
+      expect(apiResponse.success).toBe(false);
+      if (!apiResponse.success) {
+        expect(apiResponse.error instanceof AVXError).toBe(true);
+        expect(apiResponse.error.code).toBe(AVXErrorCode.NETWORK_NOT_FOUND);
+      }
+    });
+
+    it('should throw semantic AVX 500 error for internal server issues', async () => {
+      const serverIssueUrl = 'http://localhost:3000/500';
+      const apiResponse = await appService.get(serverIssueUrl);
+
+      expect(apiResponse.success).toBe(false);
+      if (!apiResponse.success) {
+        expect(apiResponse.error instanceof AVXError).toBe(true);
+        expect(apiResponse.error.code).toBe(AVXErrorCode.NETWORK_INTERNAL_SERVER_ERROR);
+      }
     });
   });
 
@@ -90,11 +142,14 @@ describe('HttpService', () => {
 
     it('should call httpClient.post and return expected api response', async () => {
       const postPayload = { hello: 'world' };
-      const apiRespinse = await appService.post(MOCK_URL, postPayload);
+      const apiResponse = await appService.post(MOCK_URL, postPayload);
 
       expect(MOCK_HTTP_CLIENT.post).toHaveBeenCalled();
       expect(MOCK_HTTP_CLIENT.post).toHaveBeenCalledWith(MOCK_URL, postPayload, undefined);
-      expect(apiRespinse).toEqual(MOCK_API_RESPONSE);
+      expect(apiResponse.success).toEqual(true);
+      if (apiResponse.success) {
+        expect(apiResponse.value).toEqual(MOCK_API_RESPONSE);
+      }
     });
   });
 
@@ -113,7 +168,10 @@ describe('HttpService', () => {
 
       expect(MOCK_HTTP_CLIENT.put).toHaveBeenCalled();
       expect(MOCK_HTTP_CLIENT.put).toHaveBeenCalledWith(MOCK_URL, postPayload, { cachable: true });
-      expect(apiResponse).toEqual(MOCK_API_RESPONSE);
+      expect(apiResponse.success).toEqual(true);
+      if (apiResponse.success) {
+        expect(apiResponse.value).toEqual(MOCK_API_RESPONSE);
+      }
     });
   });
 
@@ -130,7 +188,10 @@ describe('HttpService', () => {
 
       expect(MOCK_HTTP_CLIENT.delete).toHaveBeenCalled();
       expect(MOCK_HTTP_CLIENT.delete).toHaveBeenCalledWith(MOCK_URL, undefined);
-      expect(apiResponse).toEqual(MOCK_API_RESPONSE);
+      expect(apiResponse.success).toEqual(true);
+      if (apiResponse.success) {
+        expect(apiResponse.value).toEqual(MOCK_API_RESPONSE);
+      }
     });
   });
 });

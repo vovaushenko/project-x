@@ -1,4 +1,5 @@
-import { AVXErrorFactory, handleHTTPError } from '../../error';
+import { Result } from '@project-x/common';
+import { AVXErrorFactory } from '../../error';
 import { AVXError } from '../../error/av-x-error';
 import { AVXRequstConfig, HttpClient, IHttpService } from '../types/network.types';
 import { FetchHttpClient } from './FetchHttp.client';
@@ -11,52 +12,118 @@ export abstract class HttpService implements IHttpService {
     this.httpClient = httpClient;
   }
 
-  @handleHTTPError
-  async get<TResponse>(url: string, config?: AVXRequstConfig): Promise<TResponse> {
-    const response = await this.httpClient.get(url, config);
+  async get<TResponse>(
+    url: string,
+    config?: AVXRequstConfig,
+  ): Promise<Result<TResponse, AVXError>> {
+    try {
+      const response = await this.httpClient.get(url, config);
 
-    if (!response.ok) {
-      throw this._semanticError(response);
+      if (!response.ok) {
+        return {
+          success: false,
+          error: this._semanticError(response),
+        };
+      }
+
+      const json = await response.json();
+      return {
+        success: true,
+        value: json as TResponse,
+      };
+    } catch (error) {
+      // TODO: introspect error and return appropriate AVXError
+      return {
+        success: false,
+        error: this._errorFactory.createUnknownNetworkError({ message: 'unknow network error' }),
+      };
     }
-
-    const json = await response.json();
-    return json as TResponse;
   }
 
-  @handleHTTPError
-  async post<TResponse>(url: string, data?: unknown, config?: AVXRequstConfig): Promise<TResponse> {
-    const response = await this.httpClient.post(url, data, config);
+  async post<TResponse>(
+    url: string,
+    data?: unknown,
+    config?: AVXRequstConfig,
+  ): Promise<Result<TResponse, AVXError>> {
+    try {
+      const response = await this.httpClient.post(url, data, config);
 
-    if (!response.ok) {
-      throw this._semanticError(response);
+      if (!response.ok) {
+        return {
+          success: false,
+          error: this._semanticError(response),
+        };
+      }
+
+      const json = await response.json();
+      return {
+        success: true,
+        value: json as TResponse,
+      };
+    } catch (error) {
+      // TODO: introspect error and return appropriate AVXError
+      return {
+        success: false,
+        error: this._errorFactory.createUnknownNetworkError({ message: 'unknow network error' }),
+      };
     }
-
-    const json = await response.json();
-    return json as TResponse;
   }
 
-  @handleHTTPError
-  async put<TResponse>(url: string, data?: unknown, config?: AVXRequstConfig): Promise<TResponse> {
-    const response = await this.httpClient.put(url, data, config);
+  async put<TResponse>(
+    url: string,
+    data?: unknown,
+    config?: AVXRequstConfig,
+  ): Promise<Result<TResponse, AVXError>> {
+    try {
+      const response = await this.httpClient.put(url, data, config);
 
-    if (!response.ok) {
-      throw this._semanticError(response);
+      if (!response.ok) {
+        return {
+          success: false,
+          error: this._semanticError(response),
+        };
+      }
+
+      const json = await response.json();
+      return {
+        success: true,
+        value: json as TResponse,
+      };
+    } catch (error) {
+      // TODO: introspect error and return appropriate AVXError
+      return {
+        success: false,
+        error: this._errorFactory.createUnknownNetworkError({ message: 'unknow network error' }),
+      };
     }
-
-    const json = await response.json();
-    return json as TResponse;
   }
 
-  @handleHTTPError
-  async delete<TResponse>(url: string, config?: AVXRequstConfig): Promise<TResponse> {
-    const response = await this.httpClient.delete(url, config);
+  async delete<TResponse>(
+    url: string,
+    config?: AVXRequstConfig,
+  ): Promise<Result<TResponse, AVXError>> {
+    try {
+      const response = await this.httpClient.delete(url, config);
 
-    if (!response.ok) {
-      throw this._semanticError(response);
+      if (!response.ok) {
+        return {
+          success: false,
+          error: this._semanticError(response),
+        };
+      }
+
+      const json = await response.json();
+      return {
+        success: true,
+        value: json as TResponse,
+      };
+    } catch (error) {
+      // TODO: introspect error and return appropriate AVXError
+      return {
+        success: false,
+        error: this._errorFactory.createUnknownNetworkError({ message: 'unknow network error' }),
+      };
     }
-
-    const json = await response.json();
-    return json as TResponse;
   }
 
   public setHttpClient(httpClient: HttpClient) {

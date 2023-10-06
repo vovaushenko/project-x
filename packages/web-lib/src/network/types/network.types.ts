@@ -1,12 +1,23 @@
+import { Result } from '@project-x/common';
+import { AVXError } from '../../error/av-x-error';
+
 export interface AVXRequstConfig extends RequestInit {
   cachable?: boolean;
 }
 
 export interface IHttpService {
-  get<TResponse>(url: string, config?: AVXRequstConfig): Promise<TResponse>;
-  post<TResponse>(url: string, data?: unknown, config?: AVXRequstConfig): Promise<TResponse>;
-  put<TResponse>(url: string, data?: unknown, config?: AVXRequstConfig): Promise<TResponse>;
-  delete<TResponse>(url: string, config?: AVXRequstConfig): Promise<TResponse>;
+  get<TResponse>(url: string, config?: AVXRequstConfig): Promise<Result<TResponse, AVXError>>;
+  post<TResponse>(
+    url: string,
+    data?: unknown,
+    config?: AVXRequstConfig,
+  ): Promise<Result<TResponse, AVXError>>;
+  put<TResponse>(
+    url: string,
+    data?: unknown,
+    config?: AVXRequstConfig,
+  ): Promise<Result<TResponse, AVXError>>;
+  delete<TResponse>(url: string, config?: AVXRequstConfig): Promise<Result<TResponse, AVXError>>;
 }
 
 export interface HttpClient {
