@@ -9,8 +9,8 @@ export class PlaygroundsPage extends ApplicationView {
 
   async connectedCallback() {
     super.connectedCallback();
-    const tasks = await this._taskService.getTasks();
-    console.log({ tasks });
+    const tasksOutcome = await this._taskService.getTasks();
+    console.log({ tasksOutcome });
   }
 
   render() {
