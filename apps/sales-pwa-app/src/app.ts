@@ -25,6 +25,10 @@ export class SalesApp extends LitElement {
     `;
   }
 
+  connectedCallback(): void {
+    super.connectedCallback();
+  }
+
   protected firstUpdated(
     _changedProperties: PropertyValueMap<unknown> | Map<PropertyKey, unknown>,
   ): void {
