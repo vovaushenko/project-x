@@ -1,3 +1,3 @@
 export { Logger } from './src/logger/logger';
 export * from './src/network';
-export { StorageContext } from './src/persistence/web-store-manager';
+export { WebStoreManager } from './src/persistence/web-store-manager';

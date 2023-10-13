@@ -1,9 +1,9 @@
 export interface IStorageStrategy {
-  getOneByKey<TStoredData>(key: string): Promise<OperationResult<TStoredData>>;
-  setOneByKey(key: string, value: unknown): Promise<OperationResult<void>>;
-  remove(key: string): Promise<OperationResult<void>>;
-  init(): Promise<void>;
-  storageAvailable(): Promise<boolean>;
+  getOneByKey<TStoredData>(key: string, context?: any): Promise<OperationResult<TStoredData>>;
+  setOneByKey(key: string, value: unknown, context?: any): Promise<OperationResult<void>>;
+  remove(key: string, context?: any): Promise<OperationResult<void>>;
+  // TODO: plan how context is passed
+  init(context?: any): Promise<void>;
 }
 
 export type IWebStore = Pick<IStorageStrategy, 'getOneByKey' | 'init' | 'remove' | 'setOneByKey'>;

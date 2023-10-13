@@ -12,7 +12,7 @@ export class SessionStorageStrategy implements IStorageStrategy {
     try {
       const storedItem = sessionStorage.getItem(key);
       if (!storedItem) {
-        return { success: false, data: 'nothing' as TData };
+        return { success: false };
       }
       return {
         success: true,
@@ -25,7 +25,7 @@ export class SessionStorageStrategy implements IStorageStrategy {
       } else if (error instanceof Error) {
         console.error(errorMsg + error.message);
       }
-      return { success: false, data: 'error' as TData };
+      return { success: false };
     }
   }
 
@@ -54,7 +54,7 @@ export class SessionStorageStrategy implements IStorageStrategy {
     }
   }
 
-  async storageAvailable(): Promise<boolean> {
+  private async storageAvailable(): Promise<boolean> {
     const testString = '__storage_test__';
     try {
       sessionStorage.setItem(testString, testString);
