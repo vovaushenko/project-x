@@ -6,7 +6,8 @@ describe('AVXErrorFactory', () => {
   const MOCK_ERROR_MESSAGE = 'Test Error';
   const MOCK_ERROR_DETAILS = 'Test Details';
   it('should create a BadRequestError', () => {
-    const error = AVXErrorFactory.createBadRequestError({
+    const errorFactory = AVXErrorFactory.getInstance();
+    const error = errorFactory.createBadRequestError({
       message: MOCK_ERROR_MESSAGE,
       details: MOCK_ERROR_DETAILS,
     });
