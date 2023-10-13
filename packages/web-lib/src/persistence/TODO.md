@@ -1,0 +1,4 @@
+- instantiation of web store (think how to initialize different kinds of stores (knowing that indexdb needs instantiation))
+- implement simple atomic operations (getOne || getOneByKey, deleteByKey, saveOne, | updateByKey) -> implement for local and session store
+- research about index db -> how it works and what it supports
+- we'll work to make this typesafe (by using generics)
