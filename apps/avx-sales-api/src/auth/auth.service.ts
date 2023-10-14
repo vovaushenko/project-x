@@ -30,4 +30,14 @@ export class AuthService {
 
     return { access_token: accessToken };
   }
+
+  async validateUser(email: string, password: string): Promise<any> {
+    // TODO: update
+    const user = await this.usersService.findUserByEmail(email);
+    console.log({ user, password });
+    if (user && (await user.validatePassword(password))) {
+      return user;
+    }
+    return null;
+  }
 }

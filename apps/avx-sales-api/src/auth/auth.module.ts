@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { UsersService } from 'src/users/users.service';
 import { UsersRepository } from 'src/users/repository/users.repository';
+import { LocalStrategy } from './strategy/local.strategy';
 
 @Module({
   imports: [
@@ -17,7 +18,13 @@ import { UsersRepository } from 'src/users/repository/users.repository';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  providers: [AuthService, JwtStrategy, UsersService, UsersRepository],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    UsersService,
+    UsersRepository,
+    LocalStrategy,
+  ],
   exports: [AuthService],
   controllers: [AuthController],
 })
