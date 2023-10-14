@@ -1,7 +1,7 @@
 import { SessionStorageStrategy } from './strategies';
 import { IStorageStrategy, IWebStore, OperationResult } from './web-store.types';
 
-export class StorageContext implements IWebStore {
+export class WebStoreManager implements IWebStore {
   private strategy: IStorageStrategy;
 
   constructor(strategy?: IStorageStrategy) {
@@ -14,8 +14,8 @@ export class StorageContext implements IWebStore {
   setStrategy(strategy: IStorageStrategy): void {
     this.strategy = strategy;
   }
-  async init(): Promise<void> {
-    await this.strategy.init();
+  async init(context?: any): Promise<void> {
+    await this.strategy.init(context);
   }
   async getOneByKey<TData>(key: string): Promise<OperationResult<TData>> {
     return this.strategy.getOneByKey<TData>(key);

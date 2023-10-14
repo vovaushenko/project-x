@@ -13,7 +13,7 @@ export class LocalStorageStrategy implements IStorageStrategy {
     try {
       const storedItem = this.storage.getItem(key);
       if (!storedItem) {
-        return { success: false, data: 'nothing' as TData };
+        return { success: false };
       }
       return {
         success: true,
@@ -26,7 +26,7 @@ export class LocalStorageStrategy implements IStorageStrategy {
       } else if (error instanceof Error) {
         console.error(errorMsg + error.message);
       }
-      return { success: false, data: 'error' as TData };
+      return { success: false };
     }
   }
 
@@ -40,6 +40,8 @@ export class LocalStorageStrategy implements IStorageStrategy {
         return { success: false };
       }
     } catch (error) {
+      // need to check if error is quotaExceeded, later custom
+      // implementation for handling
       console.error('Error in local storage: setOneByKey');
       return { success: false };
     }
@@ -55,7 +57,7 @@ export class LocalStorageStrategy implements IStorageStrategy {
     }
   }
 
-  async storageAvailable(): Promise<boolean> {
+  private async storageAvailable(): Promise<boolean> {
     const testString = '__storage_test__';
     try {
       this.storage.setItem(testString, testString);
