@@ -8,6 +8,10 @@ import { JwtStrategy } from './strategy/jwt.strategy';
 import { UsersService } from 'src/users/users.service';
 import { UsersRepository } from 'src/users/repository/users.repository';
 import { LocalStrategy } from './strategy/local.strategy';
+import { RefreshTokenIdsStorage } from './refresh-token-ids.storage';
+import { JwtRefreshTokenStrategy } from './strategy/jwt-refresh-token.strategy';
+
+// https://medium.com/@0xAggelos/building-a-secure-authentication-system-with-nestjs-jwt-and-postgresql-e1b4833b6b4e
 
 @Module({
   imports: [
@@ -21,9 +25,11 @@ import { LocalStrategy } from './strategy/local.strategy';
   providers: [
     AuthService,
     JwtStrategy,
+    JwtRefreshTokenStrategy,
     UsersService,
     UsersRepository,
     LocalStrategy,
+    RefreshTokenIdsStorage,
   ],
   exports: [AuthService],
   controllers: [AuthController],

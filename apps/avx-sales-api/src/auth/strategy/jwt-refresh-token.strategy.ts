@@ -27,7 +27,9 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(
 
   async validate(payload: JwtPayload): Promise<any> {
     this.logger.warn(`Payload: ${JSON.stringify(payload)}`);
+    console.log('WE ARE HERE');
     const user = await this.usersService.findUserByEmail(payload.email);
+    console.log({ user });
     if (!user) {
       this.logger.error('User not found');
       throw new UnauthorizedException();
