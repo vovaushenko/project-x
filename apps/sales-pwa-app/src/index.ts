@@ -7,3 +7,4 @@ export { OpportunityDetailPage } from './pages/opportunity/opportunity-detail.pa
 export { WorkerPage } from './pages/worker.page';
 export { ServiceWorkerPage } from './pages/service-worker.page';
 export { MockComponent } from './components/theme/mock.component';
+export { JwtAuthFlow } from './features/auth/by-jwt/ui/auth-by-jwt';

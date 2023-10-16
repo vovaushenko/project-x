@@ -1,6 +1,4 @@
-import { IAVXUser } from '@project-x/model';
-
-export type IRegisterUserDto = Omit<IAVXUser, 'id' | 'role' | 'isActive'>;
+import { IRegisterUserDto } from '@project-x/sales-model/src/user/user.model';
 
 export class RegisterUserDto implements IRegisterUserDto {
   name: string;

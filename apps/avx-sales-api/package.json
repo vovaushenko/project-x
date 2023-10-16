@@ -1,5 +1,5 @@
 {
-  "name": "sales-api",
+  "name": "@project-x/sales-api",
   "version": "0.0.1",
   "description": "Sales REST Api client",
   "author": "Vova Ushenko, Austin Ma",
@@ -27,7 +27,6 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/passport": "^10.0.2",
     "@nestjs/platform-express": "^10.0.0",
-    "@project-x/model": "workspace:*",
     "bcrypt": "^5.1.1",
     "ioredis": "^5.3.2",
     "passport": "^0.6.0",
@@ -35,7 +34,8 @@
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "@project-x/sales-model": "workspace:*"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

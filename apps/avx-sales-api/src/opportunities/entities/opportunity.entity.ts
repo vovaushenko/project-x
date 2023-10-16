@@ -1,4 +1,4 @@
-import { IAVXOpportunity } from '@project-x/model';
+import { IAVXOpportunity } from '../../../../../packages/sales-model';
 
 export class AVXOpportunity implements IAVXOpportunity {
   id: number;

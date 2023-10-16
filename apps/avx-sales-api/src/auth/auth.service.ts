@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { JwtRefreshTokenStrategy } from './strategy/jwt-refresh-token.strategy';
 import { RedisTokenStorageService } from 'src/redis/token/redis-token.service';
+import { ISignInResult } from '@project-x/sales-model';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
     private readonly redisTokenStorageService: RedisTokenStorageService,
   ) {}
 
-  async signIn(signInDto: SignInDto) {
+  async signIn(signInDto: SignInDto): Promise<ISignInResult> {
     const { email, password } = signInDto;
 
     const user = await this.usersService.findUserByEmail(email);
@@ -38,7 +39,7 @@ export class AuthService {
     // TODO: update naming of methods for redis storage
     await this.redisTokenStorageService.insert(user.id, refreshToken);
 
-    return { access_token: accessToken, refresh_token: refreshToken };
+    return { accessToken, refreshToken };
   }
 
   async validateUser(email: string, password: string): Promise<any> {

@@ -1,5 +1,5 @@
-import { IAVXUser, IAVXUserRole } from '@project-x/model';
 import * as bcrypt from 'bcrypt';
+import { IAVXClientUser, IAVXUser, IAVXUserRole } from '@project-x/sales-model';
 
 export class AVXUser implements IAVXUser {
   name: string;
@@ -22,5 +22,14 @@ export class AVXUser implements IAVXUser {
 
   public async validatePassword(password: string): Promise<boolean> {
     return bcrypt.compare(password, this.password);
+  }
+
+  public toClientUser(): IAVXClientUser {
+    return {
+      email: this.email,
+      id: this.id,
+      name: this.name,
+      role: this.role,
+    };
   }
 }

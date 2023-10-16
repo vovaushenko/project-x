@@ -4,13 +4,14 @@ import { AVXUser } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { UsersRepository } from './repository/users.repository';
 import { v4 as uuidv4 } from 'uuid';
+import { IAVXClientUser } from '@project-x/sales-model';
 
 // https://medium.com/@0xAggelos/building-a-secure-authentication-system-with-nestjs-jwt-and-postgresql-e1b4833b6b4e
 @Injectable()
 export class UsersService {
   constructor(private readonly userRepository: UsersRepository) {}
 
-  async create(registerUserDto: RegisterUserDto): Promise<AVXUser> {
+  async create(registerUserDto: RegisterUserDto): Promise<IAVXClientUser> {
     const { name, password, email } = registerUserDto;
 
     const hashedPassword = await this.hashPassword(password);
@@ -23,7 +24,9 @@ export class UsersService {
       password: hashedPassword,
     });
 
-    return this.userRepository.save(user);
+    const savedUser = this.userRepository.save(user);
+
+    return savedUser.toClientUser();
   }
 
   async hashPassword(password: string): Promise<string> {

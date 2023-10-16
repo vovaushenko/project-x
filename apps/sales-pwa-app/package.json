@@ -14,7 +14,7 @@
     "@vaadin/router": "^1.7.5",
     "@project-x/common": "workspace:*",
     "lit": "^2.8.0",
-    "@project-x/model": "workspace:*",
+    "@project-x/sales-model": "workspace:*",
     "@project-x/ui-kit": "workspace:*",
     "@project-x/web-lib": "workspace:*"
   },

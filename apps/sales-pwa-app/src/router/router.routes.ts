@@ -1,5 +1,5 @@
 import { Route } from '@vaadin/router';
-import { IAVXUserRole } from '@project-x/model';
+import { IAVXUserRole } from '../../../../packages/sales-model';
 
 export type ApplicationPath =
   | '/'

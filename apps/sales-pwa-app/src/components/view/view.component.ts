@@ -8,7 +8,7 @@ import {
 } from '@vaadin/router';
 import { ApplicationPath, ApplicationRoute } from '../../router/router.routes';
 import { RouterUtils } from '../../router/router.utils';
-import { IUser } from '@project-x/model';
+import { IUser } from '../../../../../packages/sales-model';
 import { Maybe } from '../../shared/types';
 
 export class ApplicationView extends LitElement implements BeforeEnterObserver {

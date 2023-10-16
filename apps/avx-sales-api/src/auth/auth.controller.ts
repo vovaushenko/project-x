@@ -8,6 +8,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { JwtRefreshTokenGuard } from './guards/jwt-refresh-token.guard';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { IAVXClientUser } from '@project-x/sales-model';
 
 @Controller('v1/auth')
 export class AuthController {
@@ -17,7 +18,9 @@ export class AuthController {
   ) {}
 
   @Post('sign-up')
-  async signUp(@Body() registerUserDto: RegisterUserDto) {
+  async signUp(
+    @Body() registerUserDto: RegisterUserDto,
+  ): Promise<IAVXClientUser> {
     return this.usersService.create(registerUserDto);
   }
 

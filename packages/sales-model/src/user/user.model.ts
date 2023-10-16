@@ -24,8 +24,8 @@ export type IAVXUser = {
   password: string;
 };
 
-export type ICreateUserDto = {
-  name: string;
-  email: string;
-  password: string;
-};
+export type IAVXClientUser = Omit<IAVXUser, 'password' | 'isActive'>;
+
+export type IRegisterUserDto = Omit<IAVXUser, 'id' | 'role' | 'isActive'>;
+
+export type ISignInUserDto = Pick<IAVXUser, 'email' | 'password'>;

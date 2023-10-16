@@ -1,4 +1,4 @@
-import { IAVXUserRole } from '@project-x/model/src/user/user.model';
+import { IAVXUserRole } from '../../../../../packages/sales-model/src/user/user.model';
 
 export interface JwtPayload {
   id: string;
