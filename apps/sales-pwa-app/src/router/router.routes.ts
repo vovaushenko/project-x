@@ -1,5 +1,5 @@
 import { Route } from '@vaadin/router';
-import { IAuthorizationRole } from '@project-x/model';
+import { IAVXUserRole } from '@project-x/model';
 
 export type ApplicationPath =
   | '/'
@@ -14,7 +14,7 @@ export type ApplicationPath =
 export type ApplicationRoute = Route & {
   path: ApplicationPath;
   private?: boolean;
-  authorizedRoles?: IAuthorizationRole[];
+  authorizedRoles?: IAVXUserRole[];
 };
 
 // https://hilla.dev/docs/lit/guides/routing

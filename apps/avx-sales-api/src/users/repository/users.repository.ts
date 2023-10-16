@@ -7,11 +7,14 @@ export class UsersRepository {
 
   save(user: AVXUser) {
     this.users.push(user);
-    console.log({ users: this.users });
     return user;
   }
 
-  findOne(email: string) {
+  findOneByEmail(email: string) {
     return this.users.find((user) => user.email === email);
+  }
+
+  findOneById(id: string) {
+    return this.users.find((user) => user.id === id);
   }
 }

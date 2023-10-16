@@ -7,7 +7,8 @@ import Redis from 'ioredis';
 import { ConfigService } from '@nestjs/config';
 
 export class InvalidatedRefreshTokenError extends Error {}
-
+// TODO: update naming of methods for redis storage
+// TODO: centralize redis services (instantiate one redis storage)
 @Injectable()
 export class RedisTokenStorageService
   implements OnApplicationBootstrap, OnApplicationShutdown

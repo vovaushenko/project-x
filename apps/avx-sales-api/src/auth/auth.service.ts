@@ -30,12 +30,12 @@ export class AuthService {
       throw new UnauthorizedException('Invalid username or password');
     }
 
-    const payload = { id: user.id, email: user.email };
+    const payload = { id: user.id, email: user.email, role: user.role };
     const accessToken = await this.jwtService.signAsync(payload);
     const refreshToken = await this.jwtService.signAsync(payload, {
       expiresIn: '1d',
     });
-
+    // TODO: update naming of methods for redis storage
     await this.redisTokenStorageService.insert(user.id, refreshToken);
 
     return { access_token: accessToken, refresh_token: refreshToken };
@@ -44,7 +44,6 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<any> {
     // TODO: update
     const user = await this.usersService.findUserByEmail(email);
-    console.log({ user, password });
     if (user && (await user.validatePassword(password))) {
       return user;
     }

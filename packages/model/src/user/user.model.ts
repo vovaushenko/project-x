@@ -13,14 +13,17 @@ export const UserSchema = z.object({
   ...CreateUserSchema.shape,
 });
 
-export type IAuthorizationRole = z.infer<typeof UserRole>;
-export type IUser = {
+export type IAVXUserRole = z.infer<typeof UserRole>;
+
+export type IAVXUser = {
   name: string;
   email: string;
   id: string;
-  role: IAuthorizationRole;
+  isActive: boolean;
+  role: IAVXUserRole;
   password: string;
 };
+
 export type ICreateUserDto = {
   name: string;
   email: string;

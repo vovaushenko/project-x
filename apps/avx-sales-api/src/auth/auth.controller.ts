@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Headers,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Headers, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { RegisterUserDto } from 'src/users/dto/register-user.dto';
@@ -47,11 +40,5 @@ export class AuthController {
     const token = authorization.split(' ')[1];
     await this.authService.invalidateToken(token);
     return { message: 'Token invalidated successfully' };
-  }
-
-  @Get('mock')
-  @UseGuards(JwtAuthGuard)
-  async mock() {
-    return 'mock';
   }
 }
