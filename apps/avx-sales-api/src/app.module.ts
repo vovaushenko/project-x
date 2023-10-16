@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { ConfigurationModule } from './config/config.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ConfigurationModule } from './config/config.module';
     OpportunitiesModule,
     UsersModule,
     AuthModule,
+    RedisModule,
   ],
   controllers: [],
   providers: [],

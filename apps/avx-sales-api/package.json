@@ -1,8 +1,8 @@
 {
   "name": "sales-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Sales REST Api client",
+  "author": "Vova Ushenko, Austin Ma",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

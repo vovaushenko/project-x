@@ -3,7 +3,7 @@ import { SignInDto } from './dto/sign-in.dto';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { JwtRefreshTokenStrategy } from './strategy/jwt-refresh-token.strategy';
-import { RefreshTokenIdsStorage } from './refresh-token-ids.storage';
+import { RedisTokenStorageService } from 'src/redis/token/redis-token.service';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +12,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-    private readonly refreshTokenIdsStorage: RefreshTokenIdsStorage,
+    private readonly redisTokenStorageService: RedisTokenStorageService,
   ) {}
 
   async signIn(signInDto: SignInDto) {
@@ -36,7 +36,7 @@ export class AuthService {
       expiresIn: '1d',
     });
 
-    await this.refreshTokenIdsStorage.insert(user.id, refreshToken);
+    await this.redisTokenStorageService.insert(user.id, refreshToken);
 
     return { access_token: accessToken, refresh_token: refreshToken };
   }
@@ -56,7 +56,7 @@ export class AuthService {
   ): Promise<{ access_token: string }> {
     try {
       const decoded = await this.jwtService.verifyAsync(refreshToken);
-      await this.refreshTokenIdsStorage.validate(decoded.id, refreshToken);
+      await this.redisTokenStorageService.validate(decoded.id, refreshToken);
       const payload = { id: decoded.id, email: decoded.email };
       const accessToken = await this.jwtService.signAsync(payload);
       return { access_token: accessToken };
@@ -69,7 +69,7 @@ export class AuthService {
   async invalidateToken(accessToken: string): Promise<void> {
     try {
       const decoded = await this.jwtService.verifyAsync(accessToken);
-      await this.refreshTokenIdsStorage.invalidate(decoded.id);
+      await this.redisTokenStorageService.invalidate(decoded.id);
     } catch (error) {
       throw new UnauthorizedException('Invalid access token');
     }

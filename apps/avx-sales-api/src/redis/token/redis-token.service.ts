@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 export class InvalidatedRefreshTokenError extends Error {}
 
 @Injectable()
-export class RefreshTokenIdsStorage
+export class RedisTokenStorageService
   implements OnApplicationBootstrap, OnApplicationShutdown
 {
   private redisClient: Redis;
