@@ -14,15 +14,16 @@ export const UserSchema = z.object({
 });
 
 export type IAuthorizationRole = z.infer<typeof UserRole>;
-export type IUser = {
+
+export type IAVXUser = {
   name: string;
   email: string;
   id: string;
   role: IAuthorizationRole;
   password: string;
+  isActive: boolean;
 };
-export type ICreateUserDto = {
-  name: string;
-  email: string;
-  password: string;
-};
+
+export type IRegisterUserDto = Pick<IAVXUser, 'email' | 'password'>;
+
+export type IAVXClientUser = Omit<IAVXUser, 'password' | 'isActive'>;
