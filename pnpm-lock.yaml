@@ -171,6 +171,9 @@ importers:
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
+      fake-indexeddb:
+        specifier: ^5.0.0
+        version: 5.0.0
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -5389,6 +5392,11 @@ packages:
   /extsprintf@1.3.0:
     resolution: {integrity: sha512-11Ndz7Nv+mvAC1j0ktTa7fAb0vLyGGX+rMHNBYQviQDGU0Hw7lhctJANqbPhu9nV9/izT/IntTgZ7Im/9LJs9g==}
     engines: {'0': node >=0.6.0}
+    dev: true
+
+  /fake-indexeddb@5.0.0:
+    resolution: {integrity: sha512-hGMsl73XgJAk5OtC8hFDSLUVzJ3Z1/C06YpFwI7DzCsEsmH5Mvkxplv3PK6uUL7XCYVBTzayp/4gD+cp7Qi8xQ==}
+    engines: {node: '>=18'}
     dev: true
 
   /fast-deep-equal@3.1.3:

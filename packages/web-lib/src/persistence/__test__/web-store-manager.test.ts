@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { IStorageStrategy } from '../web-store.types';
-import { StorageContext } from '../web-store-manager';
+import { WebStoreManager } from '../web-store-manager';
 
 describe('WebStoreManager', () => {
   const MOCK_STRING = '__storage_test__';
@@ -18,38 +18,35 @@ describe('WebStoreManager', () => {
       return { success: true };
     }),
     init: vi.fn().mockImplementation(async () => {}),
-    storageAvailable: vi.fn().mockImplementation(async () => {
-      return true;
-    }),
   };
 
   it('should set and get strategy from context', async () => {
-    const webStore = new StorageContext();
+    const webStore = new WebStoreManager();
     webStore.setStrategy(MOCK_STRATEGY);
     const strategy = webStore.getStrategy();
     expect(strategy).toMatchObject(MOCK_STRATEGY);
   });
 
   it('should invoke strategy init', async () => {
-    const webStore = new StorageContext(MOCK_STRATEGY);
+    const webStore = new WebStoreManager(MOCK_STRATEGY);
     webStore.init();
     expect(MOCK_STRATEGY.init).toHaveBeenCalled();
   });
 
   it('should invoke strategy getOneByKey', async () => {
-    const webStore = new StorageContext(MOCK_STRATEGY);
+    const webStore = new WebStoreManager(MOCK_STRATEGY);
     webStore.getOneByKey(MOCK_STRING);
     expect(MOCK_STRATEGY.getOneByKey).toHaveBeenCalled();
   });
 
   it('should invoke strategy setOneByKey', async () => {
-    const webStore = new StorageContext(MOCK_STRATEGY);
+    const webStore = new WebStoreManager(MOCK_STRATEGY);
     webStore.setOneByKey(MOCK_STRING, MOCK_STRING);
     expect(MOCK_STRATEGY.setOneByKey).toHaveBeenCalled();
   });
 
   it('should invoke strategy remove', async () => {
-    const webStore = new StorageContext(MOCK_STRATEGY);
+    const webStore = new WebStoreManager(MOCK_STRATEGY);
     webStore.remove(MOCK_STRING);
     expect(MOCK_STRATEGY.remove).toHaveBeenCalled();
   });
