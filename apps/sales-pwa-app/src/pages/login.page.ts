@@ -8,7 +8,7 @@ export class LoginPage extends ApplicationView {
     return html`
       <section>
         <h1>Login</h1>
-        <av-badge variant="success">Success</av-badge>
+        <avx-sign-up-flow></avx-sign-up-flow>
       </section>
     `;
   }
