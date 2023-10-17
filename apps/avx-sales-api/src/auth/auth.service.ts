@@ -38,28 +38,25 @@ export class AuthService {
 
     await this.redisTokenStorageService.insert(user.id, refreshToken);
 
-    return { access_token: accessToken, refresh_token: refreshToken };
+    return { accessToken, refreshToken };
   }
 
   async validateUser(email: string, password: string): Promise<any> {
     // TODO: update
     const user = await this.usersService.findUserByEmail(email);
-    console.log({ user, password });
     if (user && (await user.validatePassword(password))) {
       return user;
     }
     return null;
   }
 
-  async refreshAccessToken(
-    refreshToken: string,
-  ): Promise<{ access_token: string }> {
+  async refreshAccessToken(refreshToken: string) {
     try {
       const decoded = await this.jwtService.verifyAsync(refreshToken);
       await this.redisTokenStorageService.validate(decoded.id, refreshToken);
       const payload = { id: decoded.id, email: decoded.email };
       const accessToken = await this.jwtService.signAsync(payload);
-      return { access_token: accessToken };
+      return { accessToken };
     } catch (error) {
       this.logger.error(`Error: ${error.message}`);
       throw new UnauthorizedException('Invalid refresh token');

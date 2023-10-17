@@ -1,3 +1,5 @@
-export class RefreshTokenDto {
-  refresh_token: string;
+import { ISalesRefreshTokenDto } from '@project-x/model';
+
+export class RefreshTokenDto implements ISalesRefreshTokenDto {
+  refreshToken: string;
 }

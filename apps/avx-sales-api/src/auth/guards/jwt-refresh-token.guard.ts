@@ -20,7 +20,7 @@ Implementing Token Rotation: You might want to consider a token rotation mechani
 export class JwtRefreshTokenGuard extends AuthGuard('jwt-refresh-token') {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const refresh_token = request.body.refresh_token;
-    return refresh_token ? true : false;
+    const refreshToken = request.body.refreshToken;
+    return refreshToken ? true : false;
   }
 }

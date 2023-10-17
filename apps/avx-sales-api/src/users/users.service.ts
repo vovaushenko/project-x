@@ -30,6 +30,6 @@ export class UsersService {
   }
 
   async findUserByEmail(email: string): Promise<AVXUser> {
-    return this.userRepository.findOne(email);
+    return this.userRepository.findOneByEmail(email);
   }
 }

@@ -8,7 +8,11 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { JwtRefreshTokenGuard } from './guards/jwt-refresh-token.guard';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
-import { IAVXClientUser } from '@project-x/model';
+import {
+  IAVXClientUser,
+  ISalesRefreshTokenApiResponse,
+  ISalesSignInApiResponse,
+} from '@project-x/model';
 
 @Controller('v1/auth')
 export class AuthController {
@@ -27,21 +31,24 @@ export class AuthController {
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('sign-in')
-  async signIn(@Body() signInDto: SignInDto) {
+  async signIn(@Body() signInDto: SignInDto): Promise<ISalesSignInApiResponse> {
     return this.authService.signIn(signInDto);
   }
 
   @UseGuards(JwtRefreshTokenGuard)
   @Post('refresh-token')
-  async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
-    return this.authService.refreshAccessToken(refreshTokenDto.refresh_token);
+  async refreshToken(
+    @Body() refreshTokenDto: RefreshTokenDto,
+  ): Promise<ISalesRefreshTokenApiResponse> {
+    return this.authService.refreshAccessToken(refreshTokenDto.refreshToken);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('invalidate-token')
   async invalidateToken(@Headers('authorization') authorization: string) {
+    // TODO: improve
     const token = authorization.split(' ')[1];
     await this.authService.invalidateToken(token);
-    return { message: 'Token invalidated successfully' };
+    return { message: 'Success' };
   }
 }

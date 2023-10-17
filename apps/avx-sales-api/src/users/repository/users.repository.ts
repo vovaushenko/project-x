@@ -10,7 +10,11 @@ export class UsersRepository {
     return user;
   }
 
-  async findOne(email: string) {
+  async findOneByEmail(email: string) {
     return this.users.find((user) => user.email === email);
+  }
+
+  async findOneById(id: string) {
+    return this.users.find((user) => user.id === id);
   }
 }
