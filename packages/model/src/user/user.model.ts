@@ -25,5 +25,5 @@ export type IAVXUser = {
 };
 
 export type IRegisterUserDto = Pick<IAVXUser, 'email' | 'password'>;
-
+export type IUpdateUserInfoDto = Pick<IAVXUser, 'name' | 'email' | 'password'>;
 export type IAVXClientUser = Omit<IAVXUser, 'password' | 'isActive'>;
