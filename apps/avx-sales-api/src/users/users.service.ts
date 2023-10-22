@@ -5,11 +5,15 @@ import * as bcrypt from 'bcrypt';
 import { UsersRepository } from './repository/users.repository';
 import { IAVXClientUser } from '@project-x/model';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 // https://medium.com/@0xAggelos/building-a-secure-authentication-system-with-nestjs-jwt-and-postgresql-e1b4833b6b4e
 @Injectable()
 export class UsersService {
-  constructor(private readonly userRepository: UsersRepository) {}
+  constructor(
+    private readonly userRepository: UsersRepository,
+    private prisma: PrismaService,
+  ) {}
 
   async create(registerUserDto: RegisterUserDto): Promise<IAVXClientUser> {
     const { password, email } = registerUserDto;
@@ -19,13 +23,19 @@ export class UsersService {
 
     const user = new AVXUser({
       email,
-      name: null,
+      name: email,
       id: Math.floor(Math.random() * 1000).toString(),
       role: 'user',
       password: hashedPassword,
     });
 
     await this.userRepository.save(user);
+    const saveUserResult = await this.prisma.aVXUser.create({
+      data: user,
+    });
+    console.log({
+      saveUserResult,
+    });
 
     return user.toClientUser();
   }
@@ -42,9 +52,12 @@ export class UsersService {
    */
   async getUserInfoById(id: string): Promise<IAVXClientUser> {
     const user = await this.userRepository.findOneById(id);
-    // TODO: find better way to omit unwanted properties
-    const { password, isActive, ...userInfo } = user;
-    return userInfo;
+
+    if (!user || !user.isActive) {
+      return null;
+    }
+
+    return user.toClientUser();
   }
 
   async updateUserInfoById(

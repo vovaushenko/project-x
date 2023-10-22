@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("AVX_DB_URL")
+}
+
+
+model AVXUser {
+  id       String     @id @default(uuid()) 
+  name     String
+  email    String     @unique
+  role     AuthorizationRole    @default(user)
+  password String
+  isActive Boolean
+}
+
+enum AuthorizationRole {
+  admin
+  user
+  guest
+  superdmin
+}

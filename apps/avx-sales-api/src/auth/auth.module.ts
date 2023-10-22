@@ -11,11 +11,13 @@ import { LocalStrategy } from './strategy/local.strategy';
 import { JwtRefreshTokenStrategy } from './strategy/jwt-refresh-token.strategy';
 import { RedisModule } from 'src/redis/redis.module';
 import { RedisTokenStorageService } from 'src/redis/token/redis-token.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 // https://medium.com/@0xAggelos/building-a-secure-authentication-system-with-nestjs-jwt-and-postgresql-e1b4833b6b4e
 
 @Module({
   imports: [
+    PrismaModule,
     RedisModule,
     UsersModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
