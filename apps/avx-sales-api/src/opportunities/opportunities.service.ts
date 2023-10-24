@@ -24,7 +24,7 @@ export class OpportunitiesService {
     if (!foundOpty) {
       throw new NotFoundException('Resource not found');
     }
-    return this.opportunitiesRepository.findOne(id);
+    return foundOpty;
   }
 
   async update(id: string, updateOpportunityDto: UpdateOpportunityDto) {

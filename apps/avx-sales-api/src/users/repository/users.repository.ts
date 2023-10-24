@@ -1,41 +1,44 @@
 import { Injectable } from '@nestjs/common';
-import { AVXUser } from '../entities/user.entity';
+import { AVXUser, User } from '../entities/user.entity';
 import { UpdateUserDto } from '../dto/update-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersRepository {
-  static _instance: UsersRepository;
-  constructor() {
-    if (UsersRepository._instance) {
-      return UsersRepository._instance;
-    }
-    UsersRepository._instance = this;
-  }
-
-  users: AVXUser[] = [];
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
 
   async save(user: AVXUser) {
-    this.users.push(user);
-    return user;
+    const savedUser = await this.userRepository.save(user);
+    return savedUser.toClientUser();
   }
 
   async findOneByEmail(email: string) {
-    return this.users.find((user) => user.email === email);
+    const foundUser = await this.userRepository.findOne({
+      where: { email },
+    });
+    return new AVXUser(foundUser);
   }
 
   async findOneById(id: string) {
-    return this.users.find((user) => user.id === id);
+    const foundUser = await this.userRepository.findOne({
+      where: { id },
+    });
+    return new AVXUser(foundUser);
   }
 
-  async updateUserInfoById(id: string, updateUserDto: UpdateUserDto) {
-    const userToUpdate = this.findOneById(id);
-    if (!userToUpdate) {
-      return false;
-    }
-    this.users = this.users.map((user) =>
-      user.id === id ? new AVXUser({ ...user, ...updateUserDto }) : user,
-    );
+  async update(toBeUpdatedUser: AVXUser, updateUserDto: UpdateUserDto) {
+    const updatedUser = await this.userRepository.save({
+      ...toBeUpdatedUser,
+      ...updateUserDto,
+    });
+    return new AVXUser(updatedUser);
+  }
 
-    return true;
+  async findAll() {
+    return this.userRepository.find();
   }
 }

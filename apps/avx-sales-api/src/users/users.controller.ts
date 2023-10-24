@@ -23,4 +23,10 @@ export class UsersController {
   ) {
     return this.usersService.updateUserInfoById(user.id, updateUserDto);
   }
+
+  @Get()
+  async getAllUsers() {
+    //TODO: for now this is for debugging puprposes, moving forward limit to admin and super admin scopes
+    return this.usersService.getAllUsers();
+  }
 }

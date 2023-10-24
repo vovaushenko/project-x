@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'opportunities' })
 @Check(`"probability" >= 0 AND "probability" <= 100`)
 export class Opportunity extends BaseEntity implements IAVXOpportunity {
   @PrimaryGeneratedColumn()
