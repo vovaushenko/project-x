@@ -1,38 +1,40 @@
 import { IAVXOpportunity } from '@project-x/model';
+import {
+  BaseEntity,
+  Check,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-export class AVXOpportunity implements IAVXOpportunity {
-  id: number;
+@Entity()
+@Check(`"probability" >= 0 AND "probability" <= 100`)
+export class Opportunity extends BaseEntity implements IAVXOpportunity {
+  @PrimaryGeneratedColumn()
+  _id: number;
+
+  @Column('uuid')
+  id: string;
+
+  @Column()
   name: string;
+  @Column()
   description: string;
+
+  @Column()
   value: number;
+
+  @Column()
   probability: number;
+
+  @Column()
   status: string;
-  created_at: number;
-  updated_at: number;
 
-  constructor(partial: Partial<AVXOpportunity>) {
-    Object.assign(this, partial);
-    this.id = randomId();
-  }
+  @CreateDateColumn()
+  created_at: Date;
 
-  static from(dto: Partial<AVXOpportunity>) {
-    return new AVXOpportunity(dto);
-  }
-
-  static fromEntity(entity: AVXOpportunity) {
-    return this.from({
-      id: entity.id,
-      name: entity.name,
-      description: entity.description,
-      value: entity.value,
-      probability: entity.probability,
-      status: entity.status,
-      created_at: entity.created_at,
-      updated_at: entity.updated_at,
-    });
-  }
-}
-
-function randomId() {
-  return Math.floor(Math.random() * 999);
+  @UpdateDateColumn()
+  updated_at: Date;
 }
