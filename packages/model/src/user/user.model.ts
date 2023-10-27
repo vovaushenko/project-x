@@ -39,6 +39,7 @@ export type IAVXUser = {
 };
 
 export type IRegisterUserDto = z.infer<typeof registerUserSchema>;
+
 export type IRegistrUserOnClientDto = z.infer<typeof signUpClientUserSchema>;
 export type IUpdateUserInfoDto = Pick<IAVXUser, 'name' | 'email' | 'password'>;
 export type IAVXClientUser = Omit<IAVXUser, 'password' | 'isActive'>;
