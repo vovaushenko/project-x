@@ -1,65 +1,44 @@
+import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateOpportunityDto } from '../dto/update-opportunity.dto';
-import { AVXOpportunity } from '../entities/opportunity.entity';
+import { Opportunity } from '../entities/opportunity.entity';
+import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { CreateOpportunityDto } from '../dto/create-opportunity.dto';
 
+@Injectable()
 export class OpportunitiesRepository {
-  private opportunities: AVXOpportunity[] = [];
+  constructor(
+    @InjectRepository(Opportunity)
+    private optyRepository: Repository<Opportunity>,
+  ) {}
 
-  constructor() {
-    this._seedOpportunities();
+  async create(saveOptyDto: CreateOpportunityDto & { id: string }) {
+    const saveOptyResult = await this.optyRepository.save(saveOptyDto);
+    return saveOptyResult;
   }
 
-  create(opportunity: AVXOpportunity): boolean {
-    this.opportunities.push(opportunity);
-    return true;
+  async findAll() {
+    return await this.optyRepository.find();
   }
 
-  findAll() {
-    return this.opportunities;
-  }
-
-  findOne(id: number) {
-    const foundOpportunity = this.opportunities.find((opty) => opty.id === id);
-    return foundOpportunity;
-  }
-
-  update(id: number, updateOpportunityDto: UpdateOpportunityDto) {
-    const opportunity = this.findOne(id);
-    if (!opportunity) {
-      return false;
-    }
-    this.opportunities = this.opportunities.map((opty) =>
-      opty.id === id ? { ...opty, ...updateOpportunityDto } : opty,
-    );
-    return true;
-  }
-
-  remove(id: number) {
-    const isOpportunityExist = this.findOne(id);
-    if (!isOpportunityExist) {
-      return false;
-    }
-    this.opportunities = this.opportunities.filter((opty) => opty.id !== id);
-    return true;
-  }
-
-  private _seedOpportunities() {
-    for (let i = 0; i < 50; i++) {
-      this.create(this._generateRandomOpportunity());
-    }
-  }
-
-  private _generateRandomOpportunity(): AVXOpportunity {
-    const randomId = Math.floor(Math.random() * 999);
-
-    return new AVXOpportunity({
-      id: randomId,
-      name: `Opportunity ${randomId}`,
-      description: `Description for opportunity ${randomId}`,
-      value: Math.floor(Math.random() * 9999),
-      probability: Math.floor(Math.random() * 100),
-      status: 'open',
-      created_at: Date.now(),
-      updated_at: Date.now(),
+  async findOne(id: string) {
+    const foundOpty = await this.optyRepository.findOne({
+      where: { id },
     });
+    return foundOpty;
+  }
+
+  async update(
+    toBeUpdatedOpty: Opportunity,
+    updateOptyDto: UpdateOpportunityDto,
+  ) {
+    return await this.optyRepository.save({
+      ...toBeUpdatedOpty,
+      ...updateOptyDto,
+    });
+  }
+
+  async remove(id: string) {
+    return await this.optyRepository.delete({ id });
   }
 }

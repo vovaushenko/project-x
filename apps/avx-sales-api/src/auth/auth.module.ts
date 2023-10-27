@@ -11,11 +11,14 @@ import { LocalStrategy } from './strategy/local.strategy';
 import { JwtRefreshTokenStrategy } from './strategy/jwt-refresh-token.strategy';
 import { RedisModule } from 'src/redis/redis.module';
 import { RedisTokenStorageService } from 'src/redis/token/redis-token.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
 
 // https://medium.com/@0xAggelos/building-a-secure-authentication-system-with-nestjs-jwt-and-postgresql-e1b4833b6b4e
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([User]),
     RedisModule,
     UsersModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),

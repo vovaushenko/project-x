@@ -5,7 +5,7 @@ export type {
   IUpdateUserInfoDto,
   IAVXClientUser,
 } from './user/user.model';
-export type { IAVXOpportunity } from './opportunity/opportunity.model';
+export type { IAVXOpportunity, ICreateAvxOpportunityDto } from './opportunity/opportunity.model';
 export type {
   ISalesSignInDto,
   ISalesSignInApiResponse,

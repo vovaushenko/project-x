@@ -1,32 +1,43 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOpportunityDto } from './dto/create-opportunity.dto';
 import { UpdateOpportunityDto } from './dto/update-opportunity.dto';
-import { AVXOpportunity } from './entities/opportunity.entity';
 import { OpportunitiesRepository } from './repository/opportunities.repository';
+import { getUUID } from 'src/common/uuid';
 
 @Injectable()
 export class OpportunitiesService {
-  opportunitiesRepository: OpportunitiesRepository =
-    new OpportunitiesRepository();
+  constructor(private opportunitiesRepository: OpportunitiesRepository) {}
 
-  create(createOpportunityDto: CreateOpportunityDto) {
-    const newOpportunity = AVXOpportunity.from(createOpportunityDto);
-    return this.opportunitiesRepository.create(newOpportunity);
+  async create(createOpportunityDto: CreateOpportunityDto) {
+    return await this.opportunitiesRepository.create({
+      ...createOpportunityDto,
+      id: getUUID(),
+    });
   }
 
-  findAll() {
-    return this.opportunitiesRepository.findAll();
+  async findAll() {
+    return await this.opportunitiesRepository.findAll();
   }
 
-  findOne(id: number) {
-    return this.opportunitiesRepository.findOne(id);
+  async findOne(id: string) {
+    const foundOpty = await this.opportunitiesRepository.findOne(id);
+    if (!foundOpty) {
+      throw new NotFoundException('Resource not found');
+    }
+    return foundOpty;
   }
 
-  update(id: number, updateOpportunityDto: UpdateOpportunityDto) {
-    return this.opportunitiesRepository.update(id, updateOpportunityDto);
+  async update(id: string, updateOpportunityDto: UpdateOpportunityDto) {
+    const toBeUpdatedOpty = await this.findOne(id);
+
+    return this.opportunitiesRepository.update(
+      toBeUpdatedOpty,
+      updateOpportunityDto,
+    );
   }
 
-  remove(id: number) {
-    return this.opportunitiesRepository.remove(id);
+  async remove(id: string) {
+    const toBeDeletedOpty = await this.findOne(id);
+    this.opportunitiesRepository.remove(toBeDeletedOpty.id);
   }
 }
