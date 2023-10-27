@@ -4,16 +4,21 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "license": "MIT",
+  "type": "module",
+  "exports": {
+    "import": "./index.ts",
+    "require": "./dist/index.cjs"
+  },
   "scripts": {
-    "lint": "eslint \"**/*.ts\""
+    "lint": "eslint \"**/*.ts\"",
+    "build": "tsc && vite build"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
+    "vite": "^4.4.9",
+    "typescript": "^5.2.2",
+    "zod": "^3.22.2",
     "eslint-config-custom": "workspace:*",
-    "tsconfig": "workspace:*",
-    "typescript": "^4.9.4"
+    "tsconfig": "workspace:*"
   },
-  "dependencies": {
-    "zod": "^3.22.2"
-  }
+  "dependencies": {}
 }
