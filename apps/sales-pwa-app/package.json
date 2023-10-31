@@ -17,12 +17,13 @@
     "@project-x/web-lib": "workspace:*",
     "@vaadin/router": "^1.7.5",
     "lit": "^2.8.0",
-    "zod": "^3.22.2"
+    "xstate": "^4.38.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "jsdom": "^22.1.0",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9",
-    "vitest": "^0.34.4"
+    "vite": "^4.5.0",
+    "vitest": "^0.34.6"
   }
 }

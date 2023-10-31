@@ -17,6 +17,8 @@ export class LandingPage extends ApplicationView {
         <av-badge variant="success">Success</av-badge>
         <av-badge variant="danger">Danger</av-badge>
         <av-badge variant="default">Default</av-badge>
+
+        <avx-traffic-light></avx-traffic-light>
       </section>
     `;
   }

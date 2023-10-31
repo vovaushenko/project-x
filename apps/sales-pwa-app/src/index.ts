@@ -8,3 +8,4 @@ export { WorkerPage } from './pages/worker.page';
 export { ServiceWorkerPage } from './pages/service-worker.page';
 export { MockComponent } from './components/theme/mock.component';
 export { AvxSignUpFlow } from './features/auth/by-jwt/ui/signUp.component';
+export * from './widgets/traffic-light/traffic-ligtht.public-api';
