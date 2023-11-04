@@ -1,9 +1,9 @@
 import { css, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { AvElement } from '../../av-element/av-element';
+import { AvxBaseElement } from '../../av-element/avx-element';
 
 @customElement('av-paragraph')
-export class AvParagraph extends AvElement {
+export class AvParagraph extends AvxBaseElement {
   static styles = [
     ...super.styles,
     css`

@@ -7,7 +7,7 @@ import { AV_UI_KIT_THEME_NAMESPACE } from '../../shared/constants';
 import { isSupportedTheme } from '../../shared/utils';
 
 @customElement('av-element')
-export class AvElement extends LitElement {
+export class AvxBaseElement extends LitElement {
   static styles = AV_X_DESIGN_SYSTEM;
 
   @state() public theme: Maybe<UiKitTheme> = null;
@@ -53,6 +53,6 @@ export class AvElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'av-element': AvElement;
+    'av-element': AvxBaseElement;
   }
 }

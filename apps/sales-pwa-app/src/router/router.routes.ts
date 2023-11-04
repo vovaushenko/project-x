@@ -20,7 +20,7 @@ export type ApplicationRoute = Route & {
 // https://hilla.dev/docs/lit/guides/routing
 // https://vaadin.github.io/router/vaadin-router/#/classes/Router
 export const routes: ApplicationRoute[] = [
-  { path: '/', component: 'av-landing-page' },
+  { path: '/', component: 'avx-landing-page' },
   { path: '/login', component: 'login-page' },
   {
     path: '/playgrounds',

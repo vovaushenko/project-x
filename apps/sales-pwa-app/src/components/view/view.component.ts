@@ -8,7 +8,7 @@ import {
 } from '@vaadin/router';
 import { ApplicationPath, ApplicationRoute } from '../../router/router.routes';
 import { RouterUtils } from '../../router/router.utils';
-import { IUser } from '@project-x/model';
+import { IAVXClientUser } from '@project-x/model';
 import { Maybe } from '../../shared/types';
 
 export class ApplicationView extends LitElement implements BeforeEnterObserver {
@@ -32,18 +32,17 @@ export class ApplicationView extends LitElement implements BeforeEnterObserver {
   }
 
   @state() location: RouterLocation | null = null;
-  @state() user: Maybe<IUser> = null;
+  @state() user: Maybe<IAVXClientUser> = null;
 
   connectedCallback(): void {
     super.connectedCallback();
-    console.log({ user: this.user });
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
   }
 
-  getInitialUser(): IUser {
+  getInitialUser(): IAVXClientUser {
     // TODO: mock implementation
     return {
       id: '123',

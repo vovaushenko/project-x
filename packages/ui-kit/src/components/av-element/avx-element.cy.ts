@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import './av-element';
+import './avx-element';
 import { AV_UI_KIT_THEME_NAMESPACE } from '../../shared/constants';
 
 describe('AvElement', () => {

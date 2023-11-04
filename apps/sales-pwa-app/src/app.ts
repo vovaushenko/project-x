@@ -25,6 +25,11 @@ export class SalesApp extends LitElement {
     `;
   }
 
+  static shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    mode: 'open',
+  };
+
   connectedCallback(): void {
     super.connectedCallback();
   }
