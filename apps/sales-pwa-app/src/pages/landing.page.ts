@@ -11,14 +11,7 @@ export class LandingPage extends ApplicationView {
   render() {
     return html`
       <section>
-        <h1>Hello on Sales PWA Landing Page!!!</h1>
-        <h2>Update</h2>
-        <button id="logger-btn" @click=${() => this._onClick()}>Log</button>
-        <av-badge variant="success">Success</av-badge>
-        <av-badge variant="danger">Danger</av-badge>
-        <av-badge variant="default">Default</av-badge>
-
-        <avx-traffic-light></avx-traffic-light>
+        <todo-list></todo-list>
       </section>
     `;
   }
