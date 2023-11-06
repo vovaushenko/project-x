@@ -4,7 +4,9 @@ export type {
   IRegisterUserDto,
   IUpdateUserInfoDto,
   IAVXClientUser,
+  IRegistrUserOnClientDto,
 } from './user/user.model';
+export { registerUserSchema, signUpClientUserSchema } from './user/user.model';
 export type { IAVXOpportunity, ICreateAvxOpportunityDto } from './opportunity/opportunity.model';
 export type {
   ISalesSignInDto,

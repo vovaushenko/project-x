@@ -11,12 +11,13 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@vaadin/router": "^1.7.5",
     "@project-x/common": "workspace:*",
-    "lit": "^2.8.0",
     "@project-x/model": "workspace:*",
     "@project-x/ui-kit": "workspace:*",
-    "@project-x/web-lib": "workspace:*"
+    "@project-x/web-lib": "workspace:*",
+    "@vaadin/router": "^1.7.5",
+    "lit": "^2.8.0",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "jsdom": "^22.1.0",

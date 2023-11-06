@@ -1,7 +1,8 @@
 import { LitElement, html } from 'lit';
 import { JwtAuthService } from '../service/jwt-auth.service';
 import { customElement, state } from 'lit/decorators.js';
-import { IAVXClientUser } from '@project-x/model';
+import { IAVXClientUser, signUpClientUserSchema } from '@project-x/model';
+import { ZodError } from 'zod';
 
 @customElement('avx-sign-up-flow')
 export class AvxSignUpFlow extends LitElement {
@@ -26,6 +27,8 @@ export class AvxSignUpFlow extends LitElement {
       <form @submit=${this._handleSignUp}>
         <input type="email" name="email" placeholder="Email" />
         <input type="password" name="password" placeholder="Password" />
+        <input type="password" name="verificationPassword" placeholder="Verification Password" />
+
         <button type="submit">Sign Up</button>
       </form>
     `;
@@ -45,6 +48,7 @@ export class AvxSignUpFlow extends LitElement {
       <form @submit=${this._handleSignIn}>
         <input type="email" name="email" placeholder="Email" />
         <input type="password" name="password" placeholder="Password" />
+
         <button type="submit">Sign In</button>
       </form>
     `;
@@ -53,15 +57,28 @@ export class AvxSignUpFlow extends LitElement {
   private async _handleSignUp(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
-    const email = form.email.value;
-    const password = form.password.value;
 
-    const signUpResult = await this.jwtAuthService.signUp({ email, password });
+    const clientSingUpDto = [...new FormData(form).entries()].reduce(
+      (acc, [key, value]) => ((acc[key] = value), acc),
+      {} as Record<string, FormDataEntryValue>,
+    );
 
-    if (signUpResult.success) {
-      this.user = signUpResult.value;
-    } else {
-      alert('Error signing up');
+    try {
+      const signUpDto = signUpClientUserSchema.parse(clientSingUpDto);
+
+      const signUpResult = await this.jwtAuthService.signUp(signUpDto);
+      if (signUpResult.success) {
+        this.user = signUpResult.value;
+      } else {
+        alert('Error signing up');
+      }
+    } catch (error) {
+      if (error instanceof ZodError) {
+        alert('ZOD ERROR');
+        console.log(error.issues);
+      } else {
+        alert('Error signing up');
+      }
     }
   }
 

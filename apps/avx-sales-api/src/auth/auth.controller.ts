@@ -1,4 +1,11 @@
-import { Body, Controller, Headers, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Headers,
+  Post,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { RegisterUserDto } from 'src/users/dto/register-user.dto';
@@ -12,7 +19,9 @@ import {
   IAVXClientUser,
   ISalesRefreshTokenApiResponse,
   ISalesSignInApiResponse,
+  registerUserSchema,
 } from '@project-x/model';
+import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
 
 @Controller('v1/auth')
 export class AuthController {
@@ -22,6 +31,7 @@ export class AuthController {
   ) {}
 
   @Post('sign-up')
+  @UsePipes(new ZodValidationPipe(registerUserSchema))
   async signUp(
     @Body() registerUserDto: RegisterUserDto,
   ): Promise<IAVXClientUser> {
