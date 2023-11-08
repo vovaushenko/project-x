@@ -45,13 +45,13 @@ export class AVXUser implements IAVXUser {
   synchronize: false,
 })
 export class User extends BaseEntity implements IAVXUser {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: 'bigint' })
   _id: number;
 
   @Column('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   name: string;
 
   @Column({ unique: true })
@@ -60,7 +60,7 @@ export class User extends BaseEntity implements IAVXUser {
   @Column()
   role: IAuthorizationRole;
 
-  @Column()
+  @Column({ default: false })
   isActive: boolean;
 
   @Column()
