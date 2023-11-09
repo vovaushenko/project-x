@@ -3,9 +3,10 @@ import { AVXUser, User } from '../entities/user.entity';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { RepositoryInterface } from 'src/auth/interfaces/repository.interface';
 
 @Injectable()
-export class UsersRepository {
+export class UsersRepository implements RepositoryInterface<User> {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
@@ -13,7 +14,7 @@ export class UsersRepository {
 
   async save(user: AVXUser) {
     const savedUser = await this.userRepository.save(user);
-    return savedUser.toClientUser();
+    return savedUser;
   }
 
   async findOneByEmail(email: string) {
@@ -40,5 +41,17 @@ export class UsersRepository {
 
   async findAll() {
     return this.userRepository.find();
+  }
+
+  async findOne(options: any) {
+    return this.userRepository.findOne(options);
+  }
+
+  async find(options?: any) {
+    return this.userRepository.find(options);
+  }
+
+  create(user: User) {
+    return this.userRepository.create(user);
   }
 }
