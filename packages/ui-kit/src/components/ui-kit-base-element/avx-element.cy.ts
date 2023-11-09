@@ -1,6 +1,6 @@
 import { html } from 'lit';
-import './avx-element';
-import { AV_UI_KIT_THEME_NAMESPACE } from '../../shared/constants';
+import './ui-kit-base.component';
+import { UI_KIT_THEME_NAMESPACE } from '../../design-system/lib/theme.constants';
 
 describe('AvElement', () => {
   it('should be able to instantiate', () => {
@@ -41,24 +41,24 @@ describe('AvElement', () => {
     cy.mount(html`<av-element></av-element>`);
 
     cy.document().then((doc) => {
-      doc.documentElement.setAttribute(AV_UI_KIT_THEME_NAMESPACE, 'dark');
+      doc.documentElement.setAttribute(UI_KIT_THEME_NAMESPACE, 'dark');
     });
 
     cy.wait(0);
 
-    cy.get('av-element').invoke('prop', AV_UI_KIT_THEME_NAMESPACE).should('equal', 'dark');
+    cy.get('av-element').invoke('prop', UI_KIT_THEME_NAMESPACE).should('equal', 'dark');
   });
 
   it('should update theme to light when attribute changes', () => {
     cy.mount(html`<av-element></av-element>`);
 
     cy.document().then((doc) => {
-      doc.documentElement.setAttribute(AV_UI_KIT_THEME_NAMESPACE, 'light');
+      doc.documentElement.setAttribute(UI_KIT_THEME_NAMESPACE, 'light');
     });
 
     cy.wait(0);
 
-    cy.get('av-element').invoke('prop', AV_UI_KIT_THEME_NAMESPACE).should('equal', 'light');
+    cy.get('av-element').invoke('prop', UI_KIT_THEME_NAMESPACE).should('equal', 'light');
   });
 
   it('should log a warning for unsupported theme and set theme to not defined', () => {
@@ -73,7 +73,7 @@ describe('AvElement', () => {
     });
 
     cy.wait(100);
-    cy.get('av-element').invoke('prop', AV_UI_KIT_THEME_NAMESPACE).should('equal', null);
+    cy.get('av-element').invoke('prop', UI_KIT_THEME_NAMESPACE).should('equal', null);
 
     cy.get('@consoleWarn').should(
       'be.calledWith',

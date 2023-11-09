@@ -1,22 +1,21 @@
 import { LitElement } from 'lit';
 import { LoggerController } from '../../controllers/Logger.controller';
-import { customElement, state } from 'lit/decorators.js';
-import { AV_X_DESIGN_SYSTEM } from '../../design-system/tokens';
+import { property } from 'lit/decorators.js';
+import { UI_KIT_DESIGN_SYSTEM } from '../../design-system/tokens/tokens';
 import { Maybe, UiKitTheme } from '../../shared/types';
-import { AV_UI_KIT_THEME_NAMESPACE } from '../../shared/constants';
-import { isSupportedTheme } from '../../shared/utils';
+import { UI_KIT_THEME_NAMESPACE } from '../../design-system/lib/theme.constants';
+import { UiKitThemeUtils } from '../../design-system/lib/theme.utils';
 
-@customElement('av-element')
-export class AvxBaseElement extends LitElement {
-  static styles = AV_X_DESIGN_SYSTEM;
+export class UiKitBaseElement extends LitElement {
+  static styles = UI_KIT_DESIGN_SYSTEM;
 
-  @state() public theme: Maybe<UiKitTheme> = null;
+  @property({ reflect: true })
+  public theme: Maybe<UiKitTheme> = null;
 
   protected _themeObserver: Maybe<MutationObserver> = null;
 
   constructor() {
     super();
-    console.log(`AV Element: ${this.constructor.name} is constructed`);
   }
 
   connectedCallback(): void {
@@ -32,8 +31,8 @@ export class AvxBaseElement extends LitElement {
 
   private _instantiateThemeObserver(): void {
     this._themeObserver = new MutationObserver(() => {
-      const appliedTheme = document.documentElement.getAttribute(AV_UI_KIT_THEME_NAMESPACE);
-      if (isSupportedTheme(appliedTheme)) {
+      const appliedTheme = UiKitThemeUtils.getCurrentlyAppliedTheme();
+      if (UiKitThemeUtils.isSupportedTheme(appliedTheme)) {
         this.theme = appliedTheme;
       } else {
         console.warn(`Current theme - ${appliedTheme} is not supported by ui-kit`);
@@ -42,17 +41,11 @@ export class AvxBaseElement extends LitElement {
 
     this._themeObserver.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: [AV_UI_KIT_THEME_NAMESPACE],
+      attributeFilter: [UI_KIT_THEME_NAMESPACE],
     });
   }
 
   private _disconnectThemeObserver(): void {
     this._themeObserver?.disconnect();
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'av-element': AvxBaseElement;
   }
 }

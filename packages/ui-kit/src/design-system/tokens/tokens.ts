@@ -1,4 +1,17 @@
 import { css } from 'lit';
+import { greenThemeColors } from '../themes/avx-greeen.theme';
+const baseStyles = css`
+  :host {
+    box-sizing: border-box;
+    display: block;
+    font-family: var(--ff-primary);
+    font-size: var(--fs-4);
+    font-weight: var(--fw-normal);
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+  }
+`;
 
 const aspectRatio = css`
   :host {
@@ -10,6 +23,17 @@ const aspectRatio = css`
     --r-widescreen: 16/9;
     --r-golden: 1.618/1;
   }
+`;
+
+const boxShadows = css`
+  --bs-m3-1: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  --bs-m3-2: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  --bs-m3-3: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+  --bs-m3-4: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  --bs-m3-5: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  --bs-m3-6: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  --bs-m3-7: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 `;
 
 export const zindex = css`
@@ -37,6 +61,12 @@ export const a11y = css`
       transition-duration: 0s !important;
       transition-delay: 0s !important;
     }
+  }
+`;
+
+export const fontFamily = css`
+  :host {
+    --ff-primary: 'Poppins', sans-serif;
   }
 `;
 
@@ -80,6 +110,7 @@ const spacing = css`
       --space-7: 1.5rem;
       --space-8: 1.75rem;
       --space-9: 2rem;
+      --space-m3-btn: 0.6rem 1.25rem;
     }
   }
 
@@ -95,6 +126,7 @@ const spacing = css`
       --space-7: 2.25rem;
       --space-8: 3rem;
       --space-9: 4.5rem;
+      --space-m3-btn: 0.6rem 1.25rem;
     }
   }
 
@@ -110,6 +142,7 @@ const spacing = css`
       --space-7: 2.25rem;
       --space-8: 3rem;
       --space-9: 4.5rem;
+      --space-m3-btn: 0.6rem 1.25rem;
     }
   }
 `;
@@ -123,6 +156,8 @@ const borderRadus = css`
     --radius-5: 12px;
     --radius-100: 100%;
     --radius-full: 9999px;
+    /* Material design btn radius see spec  https://m3.material.io/components/buttons/specs*/
+    --radius-m3-btn: 20px;
   }
 `;
 
@@ -136,28 +171,17 @@ const width = css`
   }
 `;
 
-export const colors = css`
-  @media (prefers-color-scheme: light) {
-    :host {
-      --av-primary-text-color: white;
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :host {
-      --av-primary-text-color: dark;
-    }
-  }
-`;
-
-export const AV_X_DESIGN_SYSTEM = [
+export const UI_KIT_DESIGN_SYSTEM = [
+  baseStyles,
   aspectRatio,
+  fontFamily,
   fontSize,
-  colors,
   fontWeight,
   spacing,
   borderRadus,
   width,
   zindex,
   a11y,
+  boxShadows,
+  greenThemeColors,
 ];

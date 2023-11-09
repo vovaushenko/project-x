@@ -1,9 +1,9 @@
 import { css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { AvxBaseElement } from '../av-element/avx-element';
+import { UiKitBaseElement } from '../ui-kit-base-element/ui-kit-base.component';
 
 @customElement('av-badge')
-export class AvBadge extends AvxBaseElement {
+export class AvBadge extends UiKitBaseElement {
   @property({ type: String })
   variant = 'default';
 

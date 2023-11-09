@@ -2,6 +2,7 @@ import { APPLICATION_NAME_SPACE } from '@project-x/common';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { ApplicationView } from '../components/view/view.component';
+import { UiKitThemeUtils } from '@project-x/ui-kit';
 
 const ELEMENT_NAME = `${APPLICATION_NAME_SPACE}-landing-page`;
 
@@ -16,7 +17,11 @@ export class LandingPage extends ApplicationView {
             <label for="zz">Email</label>
             <input id="email" type="email" name="email" placeholder="Email" />
           </div>
-          <button type="submit">Submit</button>
+          <avx-button type="filled" label="Toggle Theme" @click=${this._toggleTheme}></avx-button>
+          <avx-button label="hello" isLoading="true"></avx-button>
+          <avx-button label="Elevated" type="elevated"></avx-button>
+          <av-paragraph>This is paragraph 2</av-paragraph>
+          <av-mock-theme></av-mock-theme>
         </form>
 
         <todo-list></todo-list>
@@ -26,7 +31,10 @@ export class LandingPage extends ApplicationView {
 
   connectedCallback(): void {
     super.connectedCallback();
-    alert("I'm connected");
+  }
+
+  private _toggleTheme() {
+    UiKitThemeUtils.toggleTheme();
   }
 
   private handleSubmit(e: Event) {
@@ -39,7 +47,6 @@ export class LandingPage extends ApplicationView {
       {} as Record<string, FormDataEntryValue>,
     );
 
-    debugger;
     console.log({ data, formData });
   }
 }

@@ -1,9 +1,9 @@
 import { customElement } from 'lit/decorators.js';
-import { AvxBaseElement } from '../../../av-element/avx-element';
+import { UiKitBaseElement } from '../../../ui-kit-base-element/ui-kit-base.component';
 import { html } from 'lit';
 
 @customElement('avx-text-input')
-export class AvxTextInput extends AvxBaseElement {
+export class AvxTextInput extends UiKitBaseElement {
   createRenderRoot() {
     return this;
   }
