@@ -6,10 +6,10 @@ import {
   Router,
   RouterLocation,
 } from '@vaadin/router';
-import { ApplicationPath, ApplicationRoute } from '../../router/router.routes';
-import { RouterUtils } from '../../router/router.utils';
+import { ApplicationPath, ApplicationRoute } from '../../../../app/router/lib/router.routes';
+import { RouterUtils } from '../../../../app/router/lib/router.utils';
 import { IAVXClientUser } from '@project-x/model';
-import { Maybe } from '../../shared/types';
+import { Maybe } from '../../../types';
 
 export class ApplicationView extends LitElement implements BeforeEnterObserver {
   onBeforeEnter(location: RouterLocation, commands: PreventAndRedirectCommands, router: Router) {

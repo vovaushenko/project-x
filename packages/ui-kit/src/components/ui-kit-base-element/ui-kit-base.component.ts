@@ -21,6 +21,7 @@ export class UiKitBaseElement extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
     new LoggerController(this);
+    UiKitThemeUtils.getAndSetInitialTheme(this.theme);
     this._instantiateThemeObserver();
   }
 

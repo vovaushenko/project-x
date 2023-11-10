@@ -1,4 +1,4 @@
-import { Maybe } from '../shared/types';
+import { Maybe } from '../../../shared/types';
 import { ApplicationRoute } from './router.routes';
 
 export const RouterUtils = {

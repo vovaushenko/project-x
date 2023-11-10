@@ -1,6 +1,14 @@
 import { Maybe, UiKitTheme } from '../../shared/types';
 import { SUPPORTED_THEMES, UI_KIT_THEME_NAMESPACE } from './theme.constants';
 
+function _setCurrentTheme(theme: UiKitTheme) {
+  if (isSupportedTheme(theme)) {
+    document.documentElement.setAttribute(UI_KIT_THEME_NAMESPACE, theme);
+  } else {
+    console.warn(`Theme - ${theme} is not supported by ui-kit`);
+  }
+}
+
 function isSupportedTheme(theme: unknown): theme is UiKitTheme {
   return SUPPORTED_THEMES.includes(theme as UiKitTheme);
 }
@@ -25,12 +33,46 @@ function toggleTheme() {
 
   const toggledTheme = _isDarkTheme(theme) ? 'avx-green-light' : 'avx-green-dark';
 
-  document.documentElement.setAttribute(UI_KIT_THEME_NAMESPACE, toggledTheme);
+  _setCurrentTheme(toggledTheme);
   localStorage.setItem(UI_KIT_THEME_NAMESPACE, toggledTheme);
+}
+
+function getAndSetInitialTheme(reactiveThemeVariable: Maybe<UiKitTheme>) {
+  const persistedTheme = localStorage.getItem(UI_KIT_THEME_NAMESPACE);
+  const userPrefersDarkTheme = window.matchMedia('prefers-color-scheme: dark)').matches;
+
+  if (persistedTheme) {
+    if (isSupportedTheme(persistedTheme)) {
+      _setCurrentTheme(persistedTheme);
+      reactiveThemeVariable = persistedTheme;
+    } else {
+      console.warn(`Persisted theme - ${persistedTheme} is not supported by ui-kit`);
+      if (userPrefersDarkTheme) {
+        _setCurrentTheme('avx-green-dark');
+        reactiveThemeVariable = 'avx-green-dark';
+      } else {
+        _setCurrentTheme('avx-green-light');
+        reactiveThemeVariable = 'avx-green-light';
+      }
+    }
+  } else {
+    if (userPrefersDarkTheme) {
+      _setCurrentTheme('avx-green-dark');
+      reactiveThemeVariable = 'avx-green-dark';
+    } else {
+      _setCurrentTheme('avx-green-light');
+      reactiveThemeVariable = 'avx-green-light';
+    }
+  }
 }
 
 function _isDarkTheme(themeName: UiKitTheme) {
   return themeName.includes('dark');
 }
 
-export const UiKitThemeUtils = { isSupportedTheme, getCurrentlyAppliedTheme, toggleTheme };
+export const UiKitThemeUtils = {
+  isSupportedTheme,
+  getCurrentlyAppliedTheme,
+  toggleTheme,
+  getAndSetInitialTheme,
+};

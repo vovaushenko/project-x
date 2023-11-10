@@ -1,4 +1,4 @@
-import { Utils } from '../shared/utils';
+import { Utils } from '../utils';
 /**
  *  Example of a web worker
  * https://web.dev/workers-basics/

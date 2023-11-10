@@ -17,7 +17,7 @@
  * Background sync 🧪 (experimental) : https://developer.mozilla.org/en-US/docs/Web/API/Background_Synchronization_API
  */
 
-import { Maybe } from '../shared/types';
+import { Maybe } from '../types';
 
 // 1) figure out if we are offline
 const isOnline = (): boolean => {
