@@ -1,5 +1,6 @@
 import { css } from 'lit';
 import { greenThemeColors } from '../themes/avx-greeen.theme';
+import { designSystemClasses } from '../classes/design-system.classes';
 const baseStyles = css`
   :host {
     box-sizing: border-box;
@@ -81,7 +82,7 @@ export const fontSize = css`
     --fs-7: 0.953rem;
     --fs-8: 2.441rem;
     --fs-9: 3.052rem;
-    --fs-icon: 1.5rem;
+    --fs-icon: 1.75rem;
   }
 `;
 
@@ -184,4 +185,5 @@ export const UI_KIT_DESIGN_SYSTEM = [
   a11y,
   boxShadows,
   greenThemeColors,
+  designSystemClasses,
 ];

@@ -16,6 +16,7 @@ export class AvxAppNavigation extends LitElement {
             `,
           )}
         </ul>
+        <avx-theme-toggle-button></avx-theme-toggle-button>
       </nav>
     `;
   }

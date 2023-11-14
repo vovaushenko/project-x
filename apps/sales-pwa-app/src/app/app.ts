@@ -15,14 +15,10 @@ export class SalesApp extends LitElement {
   render() {
     return html`
       <avx-app-navigation></avx-app-navigation>
+      <avx-toast-shelf></avx-toast-shelf>
       <avx-app-router-outlet></avx-app-router-outlet>
     `;
   }
-
-  static shadowRootOptions: ShadowRootInit = {
-    ...LitElement.shadowRootOptions,
-    mode: 'open',
-  };
 
   constructor() {
     super();

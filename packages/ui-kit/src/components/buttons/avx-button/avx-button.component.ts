@@ -6,28 +6,62 @@ import {
   AVXButtonType,
   AVX_BUTTON_TYPES,
   AVX_BUTTON_EMPHASIS,
+  AVXButtonBehavior,
 } from './avx-button.types';
 import { ProgressActivityIcon } from '../../../shared/icons/icons';
-
+// https://web.dev/articles/more-capable-form-controls
+// https://www.hjorthhansen.dev/shadow-dom-and-forms/
 @customElement('avx-button')
 export class UiKitButton extends UiKitBaseElement {
+  internals_: ElementInternals;
   /**
    *  General API
    */
   @property({ type: String }) type: AVXButtonType = 'filled';
   @property({ type: String }) emphasis: AVXButtonEmphasis = 'medium';
   @property({ type: String }) label: string = 'AVX Button';
+  @property({ type: String }) behavior: AVXButtonBehavior = 'button';
 
   /**
    * Lifecycle API
    */
   @property({ type: Boolean }) isLoading: boolean = false;
 
+  static formAssociated = true;
+  static buttonAssociated = true;
+
   render() {
-    return html`<button class="avx-button">
+    return html`<button class="avx-button" @click="${this._click}">
       ${this.label}
       ${this.isLoading ? html`<span class="loading-icon">${ProgressActivityIcon}</span>` : ''}
     </button>`;
+  }
+
+  constructor() {
+    super();
+    this.internals_ = this.attachInternals();
+  }
+
+  static shadowRootOptions: ShadowRootInit = {
+    ...UiKitBaseElement.shadowRootOptions,
+    mode: 'open',
+  };
+
+  private _click(event: Event) {
+    switch (this.behavior) {
+      case 'button':
+        this._handleButtonClick(event);
+        break;
+      case 'submit':
+        this._handleSubmitClick(event);
+        break;
+      case 'reset':
+        this._handleResetClick(event);
+        break;
+      default:
+        this._handleButtonClick(event);
+        break;
+    }
   }
 
   connectedCallback(): void {
@@ -76,6 +110,25 @@ export class UiKitButton extends UiKitBaseElement {
       default:
         return html`<slot></slot>`;
     }
+  }
+
+  private _handleResetClick(event: Event) {
+    throw new Error(`Method not implemented: ${event}`);
+  }
+  private _handleSubmitClick(event: Event) {
+    const form = this.closest('form');
+    if (form) {
+      event.preventDefault();
+      const fakeSubmit = document.createElement('button');
+      fakeSubmit.type = 'submit';
+      fakeSubmit.style.display = 'none';
+      form.appendChild(fakeSubmit);
+      fakeSubmit.click();
+      fakeSubmit.remove();
+    }
+  }
+  private _handleButtonClick(event: Event) {
+    throw new Error(`Method not implemented: ${event}`);
   }
 
   /**

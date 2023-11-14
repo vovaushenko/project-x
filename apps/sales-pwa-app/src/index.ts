@@ -12,3 +12,5 @@ export * from './widgets/traffic-light/traffic-ligtht.public-api';
 export * from './widgets/tasks/public-api';
 export * from './widgets/theme/index';
 export * from './app/router/index';
+export * from './features/auth/index';
+export * from './widgets/toasts';
