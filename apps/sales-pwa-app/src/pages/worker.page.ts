@@ -1,6 +1,13 @@
 import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { Utils } from '../shared/utils';
+
+function fibonacci(num: number): number {
+  if (num <= 1) {
+    return 1;
+  }
+
+  return fibonacci(num - 1) + fibonacci(num - 2);
+}
 
 @customElement('av-worker-page')
 export class WorkerPage extends LitElement {
@@ -55,7 +62,7 @@ export class WorkerPage extends LitElement {
 
   private _expensiveOperation() {
     const start = performance.now();
-    const result = Utils.fibonacci(42);
+    const result = fibonacci(42);
     const end = performance.now();
 
     this.fibonacciResult = result;

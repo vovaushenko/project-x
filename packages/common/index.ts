@@ -1,2 +1,2 @@
-export const APPLICATION_NAME_SPACE = 'av';
+export const APPLICATION_NAME_SPACE = 'avx';
 export * from './types';
