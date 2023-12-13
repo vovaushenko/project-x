@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { ApplicationView } from '../../components/view/view.component';
+import { ApplicationView } from '../../shared/ui/components/view/view.component';
 
 @customElement('opportunity-list-page')
 export class OpportunityListPage extends ApplicationView {

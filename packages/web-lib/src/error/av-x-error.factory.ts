@@ -119,4 +119,14 @@ export class AVXErrorFactory {
       ...(createAvxErrorDto.metadata ? { metadata: createAvxErrorDto.metadata } : {}),
     });
   };
+
+  createCriticalApplicationError: ICreateAVXErrorFunction = (createAvxErrorDto) => {
+    return new AVXError({
+      type: AVXErrorType.CUSTOM_ERROR,
+      code: AVXErrorCode.CRITICAL_ERROR,
+      message: createAvxErrorDto.message || 'Critical Application Error',
+      ...(createAvxErrorDto.details ? { details: createAvxErrorDto.details } : {}),
+      ...(createAvxErrorDto.metadata ? createAvxErrorDto.metadata : {}),
+    });
+  };
 }

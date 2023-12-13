@@ -1,7 +1,7 @@
 import { LitElement, PropertyValueMap, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { ServiceWorkerUtils } from '../worker/service-worker';
-import { initServiceWorker } from '../worker/service-worker';
+import { ServiceWorkerUtils } from '../shared/worker/service-worker';
+import { initServiceWorker } from '../shared/worker/service-worker';
 
 @customElement('av-service-worker-page')
 export class ServiceWorkerPage extends LitElement {

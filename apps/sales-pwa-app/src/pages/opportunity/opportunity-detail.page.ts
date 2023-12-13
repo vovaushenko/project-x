@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { ApplicationView } from '../../components/view/view.component';
+import { ApplicationView } from '../../shared/ui/components/view/view.component';
 import { ParamValue } from '@vaadin/router';
 
 @customElement('opportunity-detail-page')
